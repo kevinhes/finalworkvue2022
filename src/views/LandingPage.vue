@@ -265,7 +265,7 @@
                 <span class="align-middle">TWD</span>
                 <span class="display-2 fw-bold price-detail
                 align-middle px-2">360</span>
-                <span class="align-middle">／ 月</span>
+                <span class="align-middle">／ 年</span>
               </h5>
               <p class="h5 card-text text-center mb-4">你將會得到</p>
               <ul class="text-center list-unstyled fs-5 mb-5">
