@@ -6,16 +6,42 @@ const routes = [
     component: () => import('../views/Home.vue'),
     children: [
       {
-        path: '/about',
+        path: '',
+        component: () => import('../views/LandingPage.vue'),
+      },
+      {
+        path: 'about',
         component: () => import('../views/About.vue'),
       },
       {
-        path: '/episode',
+        path: 'episodes/:category',
+        component: () => import('../views/EpisodesView.vue'),
+      },
+      {
+        path: 'episode/:id',
         component: () => import('../views/EpisodeView.vue'),
       },
       {
-        path: '/sponsorus',
+        path: 'sponsorus',
         component: () => import('../views/SponsorusView.vue'),
+      },
+    ],
+  },
+  {
+    path: '/loginpage',
+    component: () => import('../views/LoginView.vue'),
+  },
+  {
+    path: '/dashboard',
+    component: () => import('../views/DashboardView.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('../views/AdminProduct.vue'),
+      },
+      {
+        path: '/order',
+        component: () => import('../views/OrderView.vue'),
       },
     ],
   },

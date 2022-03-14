@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import 'bootstrap';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import {
   Field, Form, ErrorMessage, defineRule, configure,
 } from 'vee-validate';
@@ -8,6 +9,7 @@ import { localize, setLocale } from '@vee-validate/i18n';
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import 'material-icons/iconfont/material-icons.css';
 import App from './App.vue';
 import router from './router';
 

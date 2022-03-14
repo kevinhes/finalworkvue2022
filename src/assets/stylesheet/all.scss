@@ -1,1 +1,14 @@
-@import 'bootstrap'
+// Custom.scss
+// Option B: Include parts of Bootstrap
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../node_modules/bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+@import "./helpers/variables";
+@import "./helpers/utilities";
+// 3. Include remainder of required Bootstrap stylesheets
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+@import './helpers/banner';
+@import './base/base';
