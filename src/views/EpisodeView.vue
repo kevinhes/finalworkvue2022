@@ -18,6 +18,7 @@
     <div class="row mb-3">
       <div class="col-lg-3 offset-lg-2">
         <h5 class="mb-3">參考資料</h5>
+        <p v-html="references"></p>
       </div>
       <div class="col-lg-5">
         <h5 class="mb-3">節目資料</h5>
@@ -51,7 +52,9 @@
           }"
         >
           <swiper-slide v-for="img in productsData" :key="img.id">
-            <img :src="img.imageUrl" alt="">
+            <a href="#" @click.prevent="changeEpisode(img.id)">
+              <img :src="img.imageUrl" alt="">
+            </a>
           </swiper-slide>
         </swiper>
       </div>
@@ -76,6 +79,7 @@ export default {
       product: {},
       contentText: '',
       descriptionText: '',
+      references: '',
     };
   },
   components: {
@@ -83,21 +87,27 @@ export default {
     SwiperSlide,
   },
   methods: {
-    getProductData() {
-      this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/product/${this.$route.params.id}`)
+    getProductData(productId) {
+      let singleId = null;
+      if (productId === undefined) {
+        singleId = this.$route.params.id;
+      } else {
+        singleId = productId;
+      }
+      this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/product/${singleId}`)
         .then((res) => {
-          console.log(res.data);
+          console.log(res);
           this.product = res.data.product;
+          this.getProductsData(1, this.product.category);
           this.textCut();
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    getProductsData(page = 1, categroy = '') {
-      this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/products?page=${page}&category=${categroy}`)
+    getProductsData(page = 1, category = '') {
+      this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/products?page=${page}&category=${category}`)
         .then((res) => {
-          console.log(res);
           this.productsData = res.data.products;
         })
         .catch((error) => {
@@ -107,8 +117,10 @@ export default {
     textCut() {
       const newContent = this.product.content.split('\n');
       const newDescription = this.product.description.split('\n');
+      const newReferences = this.product.references.split('\n');
       let contentStr = '';
       let descriptionStr = '';
+      let referencesStr = '';
       newContent.forEach((i) => {
         contentStr += `
         ${i}<br/>
@@ -119,9 +131,19 @@ export default {
         ${i}<br/>
         `;
       });
+      newReferences.forEach((i) => {
+        referencesStr += `
+        ${i}<br/>
+        `;
+      });
       this.contentText = contentStr;
       this.descriptionText = descriptionStr;
+      this.references = referencesStr;
       // return str;
+    },
+    changeEpisode(id) {
+      this.$router.push(`/episode/${id}`);
+      this.getProductData(id);
     },
   },
   setup() {
@@ -131,7 +153,6 @@ export default {
   },
   mounted() {
     this.getProductData();
-    this.getProductsData(1, this.product.categroy);
   },
 };
 </script>

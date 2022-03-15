@@ -75,7 +75,7 @@ export default {
       this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/products?page=${page}&category=${categroy}`)
         .then((res) => {
           console.log(res);
-          this.productsData = res.data.products;
+          this.productsData = res.data.products.filter((i) => i.category !== '贊助');
           this.pagination = res.data.pagination;
         })
         .catch((error) => {
@@ -85,7 +85,7 @@ export default {
     getAllProductsData() {
       this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/products/all`)
         .then((res) => {
-          this.allProductsData = res.data.products;
+          this.allProductsData = res.data.products.filter((i) => i.category !== '贊助');
           this.getCategories();
         })
         .catch((error) => {
