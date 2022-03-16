@@ -2,7 +2,7 @@
   <div class="container py-5">
     <div class="row">
       <div class="col-lg-3">
-        <h5>贊助建人五四三</h5>
+        <h3>贊助建人五四三</h3>
         <p>啊我就真的很想要錢啊拜託給我一點拉拜託拜託</p>
       </div>
       <div class="col-lg-9">
@@ -54,8 +54,9 @@
       <div class="col-lg-9 order-1 order-lg-2">
         <div class="row">
           <h3 class="mb-5">贊助方案</h3>
-          <div class="col-lg-4 mb-4" v-for="sponsorDetail in sponsorData" :key="sponsorDetail.id">
-            <div class="card h-100 position-relative">
+          <div class="col-lg-4 mb-4"
+          v-for="sponsorDetail in sponsorData" :key="sponsorDetail.id">
+            <div class="card h-100">
               <div class="card-body d-flex flex-column justify-content-between">
                 <div>
                   <h5 class="card-title">{{sponsorDetail.title}}</h5>
@@ -68,10 +69,10 @@
                   <p class="fw-bold">方案說明</p>
                   <p class="card-text text-muted">{{sponsorDetail.description}}</p>
                   <p class="fw-bold">您可以獲得</p>
-                  <p class="card-text text-muted mb-5">{{sponsorDetail.description}}</p>
+                  <p class="card-text text-muted mb-3" v-html="sponsorDetail.content"></p>
                 </div>
                 <div>
-                  <a href="#" class="btn btn-outline-primary stretched-link w-100"
+                  <a href="#" class="btn btn-outline-primary w-100"
                   @click.prevent="addToCart(sponsorDetail.id)">贊助</a>
                 </div>
               </div>
@@ -152,6 +153,17 @@ export default {
           console.log(error);
         });
     },
+    // textCut(text) {
+    //   const newContent = text?.split('\n');
+    //   console.log(newContent);
+    //   let contentStr = '';
+    //   newContent.forEach((i) => {
+    //     contentStr += `
+    //     ${i}<br>
+    //     `;
+    //   });
+    //   return contentStr;
+    // },
   },
   mounted() {
     this.getProductsData();

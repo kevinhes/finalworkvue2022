@@ -22,16 +22,16 @@
         v-for="episode in productsData" :key="episode.id">
           <div class="row g-0">
             <div class="col-md-2">
-              <img :src="episode.imageUrl" class="img-fluid p-3" alt="...">
+              <img :src="episode.darkImageUrl" class="img-fluid p-3" alt="...">
             </div>
             <div class="col-md-10">
               <div class="card-body">
                 <h5 class="card-title">{{episode.title}}</h5>
                 <p class="card-text multiline-ellipsis">{{episode.description}}</p>
-                <div class="d-flex justify-content-end align-items-center">
-                  <!-- <p class="card-text">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                  </p> -->
+                <div class="d-flex justify-content-between align-items-center">
+                  <p class="card-text mb-0">
+                    <small class="text-muted">{{episode.episodeTime}}</small>
+                  </p>
                   <router-link class="btn btn-primary"
                   :to="`/episode/${episode.id}`">收聽</router-link>
                 </div>

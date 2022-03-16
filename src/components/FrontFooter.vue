@@ -4,7 +4,7 @@
     <div class="row mb-5">
       <div class="col-lg-1">
         <img src="https://i.imgur.com/d3rPSki.png" alt=""
-        class="img-fluid">
+        class="img-fluid d-none d-md-block">
       </div>
       <div class="col-lg-5">
         <h5 class="text-light">建人五四三</h5>

@@ -5,9 +5,13 @@
         <img :src="product.imageUrl" alt="" class="img-fluid">
       </div>
       <div class="col-lg-5 d-flex flex-column justify-content-center">
-        <h5>{{product.category}}</h5>
+        <h5>
+          {{product.category}}
+        </h5>
         <h2>{{product.title}}</h2>
-        <p class="mb-4 text-muted">建人五四三</p>
+        <p class="mb-4 text-muted">建人五四三
+          <span class="fs-6 text-muted">{{product.episodeTime}}</span>
+        </p>
         <div>
           <button class="btn btn-outline-primary w-lg-25  w-50 me-lg-3">贊助本季</button>
           <a :href="product.episodeLink" target="blank" class="btn btn-primary w-lg-25 w-50">收聽</a>

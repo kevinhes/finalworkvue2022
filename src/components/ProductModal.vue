@@ -16,12 +16,32 @@
           <div class="row">
             <div class="col-sm-4">
               <div class="mb-2">
-                <div class="mb-3">
+                <div class="mb-2">
                   <label for="imageUrl" class="form-label">輸入主要圖片網址</label>
                   <input type="text" class="form-control" v-model="productData.imageUrl"
                   placeholder="請輸入圖片連結">
                 </div>
                 <img class="img-fluid" :src="productData.imageUrl" alt="">
+              </div>
+              <div class="mb-2">
+                <div class="mb-2">
+                  <label for="darkImageUrl" class="form-label">輸入預覽圖片網址</label>
+                  <input type="text" class="form-control" v-model="productData.darkImageUrl"
+                  placeholder="請輸入圖片連結">
+                </div>
+                <img class="img-fluid" :src="productData.darkImageUrl" alt="">
+              </div>
+              <div class="mb-3">
+                <label for="imageFile" class="form-label">圖片上傳</label>
+                <input type="file" class="form-control" @change="imgUpload"
+                placeholder="請上傳圖片" id="imageFile" ref="imageFile">
+              </div>
+              <div class="mb-3">
+                <label for="imageUrl" class="form-label">回傳圖片網址</label>
+                <input type="text" class="form-control mb-2" v-model="imgUploadUrl"
+                placeholder="請上傳圖片">
+                <button class="btn btn-warning w-100"
+                @click="imgUploadUrl = ''">清除網址</button>
               </div>
               <div class="mb-2" v-if="Array.isArray(productData.imagesUrl)">
                 <div class="mb-3" v-for="(img, index) in productData?.imagesUrl" :key="img">
@@ -95,6 +115,11 @@
                   <input id="epdisodeNum" type="text" class="form-control"
                   placeholder="請輸入單集連結" v-model="productData.epdisodeNum">
                 </div>
+                <div class="mb-3 col-md-6">
+                  <label for="epdisodeTime" class="form-label">節目上線時間</label>
+                  <input id="epdisodeTime" type="date" class="form-control"
+                  placeholder="請輸入單集連結" v-model="productData.episodeTime">
+                </div>
               </div>
               <hr>
 
@@ -148,6 +173,7 @@ export default {
     return {
       productModal: '',
       productData: {},
+      imgUploadUrl: '',
     };
   },
   props: ['product', 'isNew'],
@@ -186,6 +212,19 @@ export default {
     createImg() {
       this.productData.imagesUrl = [];
       this.productData.imagesUrl.push('');
+    },
+    imgUpload() {
+      const imgFile = this.$refs.imageFile.files[0];
+      const formData = new FormData();
+      formData.append('file-to-upload', imgFile);
+      this.$http.post(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/admin/upload`, formData)
+        .then((res) => {
+          this.imgUploadUrl = res.data.imageUrl;
+          this.$refs.imageFile.value = '';
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   mounted() {
