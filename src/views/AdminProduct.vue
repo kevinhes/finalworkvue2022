@@ -91,6 +91,7 @@ export default {
         };
         this.$refs.productModal.openModal();
       } else if (status === 'edit') {
+        this.isNew = false;
         this.product = { ...product };
         this.$refs.productModal.openModal();
       } else if (status === 'delete') {

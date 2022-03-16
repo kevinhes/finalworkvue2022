@@ -3,7 +3,7 @@
   <div class="container py-5">
     <div class="row">
       <div class="col-lg-3 episode-nav">
-        <div class="bg-gray border-start border-5 border-primary p-2 mb-3">
+        <div class="bg-light border-start border-5 border-primary p-2 mb-3">
           <h5 class="mb-0">所有季數</h5>
         </div>
         <ul class="list-unstyled">
@@ -15,7 +15,7 @@
         </ul>
       </div>
       <div class="col-lg-9">
-        <div class="bg-gray border-start border-5 border-primary p-2 mb-3">
+        <div class="bg-light border-start border-5 border-primary p-2 mb-3">
           <h5 class="mb-0">單集列表</h5>
         </div>
         <div class="card border-0 mb-3 border-bottom"

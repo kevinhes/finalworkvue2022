@@ -85,6 +85,16 @@
                   <input id="price" type="number" min="0" class="form-control"
                   placeholder="請輸入售價" v-model="productData.price">
                 </div>
+                <div class="mb-3 col-md-6">
+                  <label for="episodeLink" class="form-label">節目連結</label>
+                  <input id="episodeLink" type="text" class="form-control"
+                  placeholder="請輸入單集連結" v-model="productData.episodeLink">
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label for="epdisodeNum" class="form-label">節目編號</label>
+                  <input id="epdisodeNum" type="text" class="form-control"
+                  placeholder="請輸入單集連結" v-model="productData.epdisodeNum">
+                </div>
               </div>
               <hr>
 

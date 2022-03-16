@@ -10,7 +10,7 @@
         <p class="mb-4 text-muted">建人五四三</p>
         <div>
           <button class="btn btn-outline-primary w-lg-25  w-50 me-lg-3">贊助本季</button>
-          <a href="#" target="blank" class="btn btn-primary w-lg-25 w-50">收聽</a>
+          <a :href="product.episodeLink" target="blank" class="btn btn-primary w-lg-25 w-50">收聽</a>
         </div>
       </div>
     </div>
