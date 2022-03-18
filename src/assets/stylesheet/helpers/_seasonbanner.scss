@@ -1,0 +1,10 @@
+.season-banner {
+  @include media-breakpoint-up(md) {
+    height: 270px;
+  };
+  @include media-breakpoint-up(lg) {
+    height: 420px;
+  };
+  height: 180px;
+  background-size: cover;
+}

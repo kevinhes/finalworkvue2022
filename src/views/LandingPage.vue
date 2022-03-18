@@ -1,6 +1,6 @@
 <template>
   <LandingBanner></LandingBanner>
-  <section class="season py-lg-5 py-3">
+  <section class="season py-lg-5 py-4">
     <div class="container">
       <p class="h2 text-center">大家好，我們是建人五四三</p>
       <p class="text-center h5 mb-lg-5 mb-3">
@@ -8,12 +8,12 @@
         讓我們用平易近人的方式來跟你談談建築的五四三 <br>
         如果你關心...
       </p>
-      <div class="row mb-lg-4">
-        <div class="col-lg-7">
-          <div style="background-image: url(https://images.unsplash.com/photo-1562408954-be39449c4962?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2148&q=80);
-          height:420px; background-size:cover;"></div>
+      <div class="row mb-4 position-relative">
+        <div class="col-md-7 mb-3 mb-md-0">
+          <div style="background-image: url(https://images.unsplash.com/photo-1562408954-be39449c4962?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2148&q=80);"
+          class="season-banner"></div>
         </div>
-        <div class="col-lg-4 d-flex flex-column justify-content-center">
+        <div class="col-md-5 d-flex flex-column justify-content-center">
           <h3>綠建築</h3>
           <p>
             有人說，興建建築是污染環境的行為<br>
@@ -22,11 +22,12 @@
             來跟各位談談建築如何邁向環境友善的第一步
           </p>
           <router-link :to="`/episodes/綠建築`"
-          class="btn btn-primary w-lg-25 w-50">收聽</router-link>
+          class="btn btn-primary w-lg-25 w-100">前往專輯</router-link>
         </div>
       </div>
-      <div class="row mb-lg-4">
-        <div class="offset-lg-1 col-lg-4 d-flex flex-column justify-content-center">
+      <div class="row mb-4">
+        <div class="col-md-5 order-2 order-lg-1 d-flex flex-column
+        justify-content-center">
           <h3>歷史建築</h3>
           <p>
             建築不只是提供人們安身的地方<br>
@@ -36,19 +37,19 @@
             讓我們在這一季告訴你
           </p>
           <router-link :to="`/episodes/oldbuilding`"
-          class="btn btn-primary w-lg-25 w-50">收聽</router-link>
+          class="btn btn-primary w-lg-25 w-100">前往專輯</router-link>
         </div>
-        <div class="col-lg-7">
-          <div style="background-image: url(https://images.unsplash.com/photo-1526034407304-e9573cc7d20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80);
-          height:420px; background-size:cover;"></div>
+        <div class="col-md-7 order-1 order-lg-2 mb-3 mb-md-0">
+          <div style="background-image: url(https://images.unsplash.com/photo-1526034407304-e9573cc7d20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80);"
+          class="season-banner"></div>
         </div>
       </div>
       <div class="row mb-3">
-        <div class="col-lg-7">
-          <div style="background-image: url(https://images.unsplash.com/photo-1588417363377-3f252ee8a94c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80);
-          height:420px; background-size:cover;"></div>
+        <div class="col-md-7 mb-3 mb-md-0">
+          <div style="background-image: url(https://images.unsplash.com/photo-1588417363377-3f252ee8a94c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80);"
+          class="season-banner"></div>
         </div>
-        <div class="col-lg-4 d-flex flex-column justify-content-center">
+        <div class="col-md-5 d-flex flex-column justify-content-center">
           <h3>電影建築</h3>
           <p>
             在電影裡面的建築退去了他作為主角的特色<br>
@@ -57,7 +58,7 @@
             就讓我一起進入建築的電影世界吧！
           </p>
           <router-link :to="`/episodes/moviebuilding`"
-          class="btn btn-primary w-lg-25 w-50">收聽</router-link>
+          class="btn btn-primary w-lg-25 w-100">前往專輯</router-link>
         </div>
       </div>
     </div>
@@ -156,159 +157,172 @@
       </swiper>
     </div>
   </section>
-  <section class="subscription py-lg-5 bg-light">
+  <section class="subscription py-5 bg-light">
     <div class="container">
       <h2 class="text-center mb-5">有您的支持<br>
         建人五四三才能提供更佳的內容
       </h2>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 mb-4 mb-md-0">
           <div class="card rounded-4 shadow-sm h-100">
-            <div class="card-body position-relative">
-              <p class="h5 text-center pt-5">
-                <span class="bg-gray p-2">友情訂閱</span>
-              </p>
-              <h5 class="card-title fw-bold text-center mb-5">
-                <span class="align-middle">TWD</span>
-                <span class="display-2 fw-bold price-detail
-                align-middle px-2">0</span>
-                <span class="align-middle">／ 月</span>
-              </h5>
-              <p class="h5 card-text text-center mb-4">你將會得到</p>
-              <ul class="text-center list-unstyled fs-5 mb-5">
-                <li class="mb-3 gift-check">
-                  <span class="material-icons text-primary fw-bold align-middle">
-                    done
-                  </span>
-                  <span class="align-middle ms-2">電子報</span>
-                </li>
-                <li>
-                  <span class="material-icons text-primary fw-bold align-middle">
-                    done
-                  </span>
-                  <span class="align-middle ms-2">
-                    下期主題預告
-                  </span>
-                </li>
-              </ul>
-              <a href="#" class="btn btn-primary mx-auto d-block w-50
-              position-absolute bottom-0 start-0 end-0 mb-5 btn-lg">按我訂閱</a>
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div>
+                <p class="h5 text-center pt-5 mb-4 mb-md-2">
+                  <span class="bg-gray p-2">友情訂閱</span>
+                </p>
+                <h5 class="card-title fw-bold text-center mb-5">
+                  <span class="align-middle">TWD</span>
+                  <span class="display-2 fw-bold price-detail
+                  align-middle px-2">0</span>
+                  <span class="align-middle">／ 月</span>
+                </h5>
+                <p class="h5 card-text text-center mb-4
+                d-none d-md-block">你將會得到</p>
+                <ul class="text-center list-unstyled fs-5 mb-5
+                d-none d-md-block">
+                  <li class="mb-3 gift-check">
+                    <span class="material-icons text-primary fw-bold align-middle">
+                      done
+                    </span>
+                    <span class="align-middle ms-2">電子報</span>
+                  </li>
+                  <li>
+                    <span class="material-icons text-primary fw-bold align-middle">
+                      done
+                    </span>
+                    <span class="align-middle ms-2">
+                      下期主題預告
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <div class="footer">
+                <a href="#" class="btn btn-primary mx-auto d-block w-50
+                mb-5 btn-lg">按我訂閱</a>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-4 mb-md-0">
           <div class="card rounded-4 shadow-sm  h-100">
-            <div class="card-body">
-              <p class="h5 text-center pt-5">
-                <span class="bg-gray p-2">1 個月</span>
-              </p>
-              <h5 class="card-title fw-bold text-center mb-5">
-                <span class="align-middle">TWD</span>
-                <span class="display-2 fw-bold price-detail
-                align-middle px-2">30</span>
-                <span class="align-middle">／ 月</span>
-              </h5>
-              <p class="h5 card-text text-center mb-4">你將會得到</p>
-              <ul class="text-center list-unstyled fs-5 mb-5">
-                <li class="mb-3">
-                  <span class="material-icons text-primary fw-bold align-middle">
-                    done
-                  </span>
-                  <span class="align-middle ms-2">電子報</span>
-                </li>
-                <li class="mb-3">
-                  <span class="material-icons text-primary fw-bold align-middle">
-                    done
-                  </span>
-                  <span class="align-middle ms-2">
-                    下期主題預告
-                  </span>
-                </li>
-                <li class="mb-3">
-                  <span class="material-icons text-primary fw-bold align-middle">
-                    done
-                  </span>
-                  <span class="align-middle ms-2">
-                    許願節目主題製作
-                  </span>
-                </li>
-                <li>
-                  <span class="material-icons text-primary fw-bold align-middle">
-                    done
-                  </span>
-                  <span class="align-middle ms-2">
-                    節目片尾感謝
-                  </span>
-                </li>
-              </ul>
-              <a href="#" class="btn btn-primary mx-auto d-block w-50
-              position-absolute bottom-0 start-0 end-0 mb-5 btn-lg">按我訂閱</a>
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div>
+                <p class="h5 text-center pt-5 mb-4 mb-md-2">
+                  <span class="bg-gray p-2">贊助 1 個月</span>
+                </p>
+                <h5 class="card-title fw-bold text-center mb-5">
+                  <span class="align-middle">TWD</span>
+                  <span class="display-2 fw-bold price-detail
+                  align-middle px-2">30</span>
+                  <span class="align-middle">／ 月</span>
+                </h5>
+                <p class="h5 card-text text-center mb-4 d-none d-md-block">你將會得到</p>
+                <ul class="text-center list-unstyled fs-5 mb-5
+                d-none d-md-block">
+                  <li class="mb-3">
+                    <span class="material-icons text-primary fw-bold align-middle">
+                      done
+                    </span>
+                    <span class="align-middle ms-2">電子報</span>
+                  </li>
+                  <li class="mb-3">
+                    <span class="material-icons text-primary fw-bold align-middle">
+                      done
+                    </span>
+                    <span class="align-middle ms-2">
+                      下期主題預告
+                    </span>
+                  </li>
+                  <li class="mb-3">
+                    <span class="material-icons text-primary fw-bold align-middle">
+                      done
+                    </span>
+                    <span class="align-middle ms-2">
+                      許願節目主題製作
+                    </span>
+                  </li>
+                  <li>
+                    <span class="material-icons text-primary fw-bold align-middle">
+                      done
+                    </span>
+                    <span class="align-middle ms-2">
+                      節目片尾感謝
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg">按我訂閱</a>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4  mb-4 mb-md-0">
           <div class="card rounded-4 shadow-sm h-100">
-            <div class="card-body sponsor-card">
-              <p class="h5 text-center pt-5">
-                <span class="bg-gray p-2">12 個月</span>
-              </p>
-              <h5 class="card-title fw-bold text-center mb-5">
-                <span class="align-middle">TWD</span>
-                <span class="display-2 fw-bold price-detail
-                align-middle px-2">360</span>
-                <span class="align-middle">／ 年</span>
-              </h5>
-              <p class="h5 card-text text-center mb-4">你將會得到</p>
-              <ul class="text-center list-unstyled fs-5 mb-5">
-                <li class="mb-3 gift-check">
-                  <span class="material-icons text-primary fw-bold align-middle">
-                    done
-                  </span>
-                  <span class="align-middle ms-2">電子報</span>
-                </li>
-                <li class="mb-3">
-                  <span class="material-icons text-primary fw-bold align-middle">
-                    done
-                  </span>
-                  <span class="align-middle ms-2">
-                    下期主題預告
-                  </span>
-                </li>
-                <li class="mb-3">
-                  <span class="material-icons text-primary fw-bold align-middle">
-                    done
-                  </span>
-                  <span class="align-middle ms-2">
-                    許願節目主題製作
-                  </span>
-                </li>
-                <li class="mb-3">
-                  <span class="material-icons text-primary fw-bold align-middle">
-                    done
-                  </span>
-                  <span class="align-middle ms-2">
-                    節目片尾感謝
-                  </span>
-                </li>
-                <li class="mb-3">
-                  <span class="material-icons text-primary fw-bold align-middle">
-                    done
-                  </span>
-                  <span class="align-middle ms-2">
-                    老人精美 3D 列印模型一顆
-                  </span>
-                </li>
-                <li>
-                  <span class="material-icons text-primary fw-bold align-middle">
-                    done
-                  </span>
-                  <span class="align-middle ms-2">
-                    美術總監封面明信片一組
-                  </span>
-                </li>
-              </ul>
-              <a href="#" class="btn btn-primary mx-auto d-block w-50
-              position-absolute bottom-0 start-0 end-0 mb-5 btn-lg">按我訂閱</a>
+            <div class="card-body sponsor-card d-flex flex-column justify-content-between">
+              <div>
+                <p class="h5 text-center pt-5 mb-4 mb-md-2">
+                  <span class="bg-gray p-2">贊助 12 個月</span>
+                </p>
+                <h5 class="card-title fw-bold text-center mb-5">
+                  <span class="align-middle">TWD</span>
+                  <span class="display-2 fw-bold price-detail
+                  align-middle px-2">360</span>
+                  <span class="align-middle">／ 年</span>
+                </h5>
+                <p class="h5 card-text text-center mb-4 d-none d-md-block">你將會得到</p>
+                <ul class="text-center list-unstyled fs-5 mb-5 d-none d-md-block">
+                  <li class="mb-3">
+                    <span class="material-icons text-primary fw-bold align-middle">
+                      done
+                    </span>
+                    <span class="align-middle ms-2">電子報</span>
+                  </li>
+                  <li class="mb-3">
+                    <span class="material-icons text-primary fw-bold align-middle">
+                      done
+                    </span>
+                    <span class="align-middle ms-2">
+                      下期主題預告
+                    </span>
+                  </li>
+                  <li class="mb-3">
+                    <span class="material-icons text-primary fw-bold align-middle">
+                      done
+                    </span>
+                    <span class="align-middle ms-2">
+                      許願節目主題製作
+                    </span>
+                  </li>
+                  <li class="mb-3">
+                    <span class="material-icons text-primary fw-bold align-middle">
+                      done
+                    </span>
+                    <span class="align-middle ms-2">
+                      節目片尾感謝
+                    </span>
+                  </li>
+                  <li class="mb-3">
+                    <span class="material-icons text-primary fw-bold align-middle">
+                      done
+                    </span>
+                    <span class="align-middle ms-2">
+                      老人精美 3D 列印模型一顆
+                    </span>
+                  </li>
+                  <li>
+                    <span class="material-icons text-primary fw-bold align-middle">
+                      done
+                    </span>
+                    <span class="align-middle ms-2">
+                      美術總監封面明信片一組
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg">按我訂閱</a>
+              </div>
             </div>
           </div>
         </div>
@@ -378,10 +392,6 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.sponsor-card {
-  height: 690px;
 }
 
 </style>

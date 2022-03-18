@@ -10,5 +10,7 @@
 // 3. Include remainder of required Bootstrap stylesheets
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-@import './helpers/banner';
 @import './base/base';
+@import './helpers/banner';
+@import './helpers/seasonbanner';
+

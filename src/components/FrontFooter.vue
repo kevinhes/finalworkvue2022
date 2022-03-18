@@ -6,7 +6,7 @@
         <img src="https://i.imgur.com/d3rPSki.png" alt=""
         class="img-fluid d-none d-md-block">
       </div>
-      <div class="col-lg-5">
+      <div class="col-lg-5 d-none d-md-block">
         <h5 class="text-light">建人五四三</h5>
         <p class="text-light">
           大家好，我們是建人五四三，我們是由三個擁有專業建築背景的朋友一起共同組建的建築 podcast，有別於
