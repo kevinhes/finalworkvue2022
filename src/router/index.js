@@ -25,6 +25,10 @@ const routes = [
         path: 'sponsorus',
         component: () => import('../views/SponsorusView.vue'),
       },
+      {
+        path: 'customerorder',
+        component: () => import('../views/CustomerOrder.vue'),
+      },
     ],
   },
   {

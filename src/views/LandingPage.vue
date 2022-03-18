@@ -1,18 +1,9 @@
 <template>
-  <section class="banner  position-relative">
-    <div class="container h-100">
-      <div class="row justify-content-center align-items-center h-100">
-        <div class="col-md-2 col-8">
-          <img src="https://i.imgur.com/UEe500P.png" alt="建人五四三logo" class="img-fluid mb-3">
-          <input type="button" value="收聽最新單集" class="btn btn-primary w-100">
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="season py-lg-5">
+  <LandingBanner></LandingBanner>
+  <section class="season py-lg-5 py-3">
     <div class="container">
       <p class="h2 text-center">大家好，我們是建人五四三</p>
-      <p class="text-center h5 mb-5">
+      <p class="text-center h5 mb-lg-5 mb-3">
         在這個影像快速來去的世界 <br>
         讓我們用平易近人的方式來跟你談談建築的五四三 <br>
         如果你關心...
@@ -328,6 +319,7 @@
 
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue';
+import LandingBanner from '@/components/LandingBanner.vue';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
@@ -345,6 +337,7 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
+    LandingBanner,
   },
   setup() {
     return {

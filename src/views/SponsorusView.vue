@@ -49,7 +49,7 @@
             <span class="align-middle ms-3">元</span>
           </p>
         </div>
-        <button class="btn btn-primary w-100">結帳</button>
+        <router-link to="/customerorder" class="btn btn-primary w-100">結帳</router-link >
       </div>
       <div class="col-lg-9 order-1 order-lg-2">
         <div class="row">
@@ -147,23 +147,12 @@ export default {
       this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
         .then((res) => {
           alert(res.data.message);
-          this.$emit('get-carts');
+          this.getCartsData();
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    // textCut(text) {
-    //   const newContent = text?.split('\n');
-    //   console.log(newContent);
-    //   let contentStr = '';
-    //   newContent.forEach((i) => {
-    //     contentStr += `
-    //     ${i}<br>
-    //     `;
-    //   });
-    //   return contentStr;
-    // },
   },
   mounted() {
     this.getProductsData();

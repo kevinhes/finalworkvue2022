@@ -21,13 +21,15 @@
         <div class="card border-0 mb-3 border-bottom"
         v-for="episode in productsData" :key="episode.id">
           <div class="row g-0">
-            <div class="col-md-2">
+            <div class="col-md-3">
               <img :src="episode.darkImageUrl" class="img-fluid p-3" alt="...">
             </div>
-            <div class="col-md-10">
-              <div class="card-body">
-                <h5 class="card-title">{{episode.title}}</h5>
-                <p class="card-text multiline-ellipsis">{{episode.description}}</p>
+            <div class="col-md-9">
+              <div class="card-body d-flex flex-column justify-content-between h-100">
+                <div class="mb-5 mb-lg-0">
+                  <h5 class="card-title fs-lg-4 bw-bold">{{episode.title}}</h5>
+                  <p class="card-text multiline-ellipsis">{{episode.description}}</p>
+                </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <p class="card-text mb-0">
                     <small class="text-muted">{{episode.episodeTime}}</small>
@@ -116,7 +118,7 @@ export default {
   .multiline-ellipsis {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     overflow: hidden;
   }
 </style>

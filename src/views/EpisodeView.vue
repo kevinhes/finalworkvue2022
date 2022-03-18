@@ -20,11 +20,11 @@
     </div>
     <hr>
     <div class="row mb-3">
-      <div class="col-lg-3 offset-lg-2">
+      <div class="col-lg-3 offset-lg-2 order-3 order-md-2">
         <h5 class="mb-3">參考資料</h5>
         <p v-html="references"></p>
       </div>
-      <div class="col-lg-5">
+      <div class="col-lg-5 order-2 order-md-3">
         <h5 class="mb-3">節目資料</h5>
         <p v-html="descriptionText">
         </p>
