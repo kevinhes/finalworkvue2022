@@ -1,17 +1,13 @@
 <template>
-  <a href="https://www.dezeen.com/2019/03/19/mjosta…rkitekter-norway/" class="text-dark">挪威CLT木造高層</a>
-  <a href="https://theurbandeveloper.com/articles/world…osed-for-tokyo" class="text-dark">70層樓高的木造高層</a>
-  <a href="https://www.marriott.com/hotels/travel/ml…-vommuli-resort/" class="text-dark">馬爾地夫Resort</a>
-  <a href="https://www.clt.info/classification-report-wall-rei-60/" class="text-dark">CLT一小時防火設計</a>
-  <a href="https://zh.wikipedia.org/wiki/%E7%83%AD%E8%A3%82%E8%A7%A3" class="text-dark">熱裂解</a>
-  <a href="https://www.abri.gov.tw/tw/research/dl/914/1" class="text-dark">炭化(建研所)</a>
-  <a href="https://www.intechopen.com/books/timber-bu…in-construction" class="text-dark">介紹CLT、GLT等木結構材料的論文</a>
+  <a href="https://www.youtube.com/watch?v=pQxVfwoDJvs" class="text-dark" target="blank">公共電視 我們的島─角落台北 尋找寶藏巖</a>
+  <a href="https://zh.wikipedia.org/wiki/%E5%B7%96%E4%BB%94" class="text-dark" target="blank">巖仔</a>
+  <a href="https://zh.wikipedia.org/wiki/%E5%AF%B6%E8%97%8F%E5%B7%96" class="text-dark" target="blank">寶藏巖</a>
+  <a href="https://zh.wikipedia.org/wiki/%E5%AF%B6%E8%97%8F%E5%B7%96%E8%81%9A%E8%90%BD" class="text-dark" target="blank">寶藏巖聚落</a>
+  <a href="http://culture-notes.blogspot.com/2012/03/blog-post_8534.html" class="text-dark" target="blank">歷史建築和古蹟之分別</a>
+  <a href="http://bankofculture.com/archives/2514" class="text-dark" target="blank">別只關心古蹟，它們也是文化資產的一份子！（中）</a>
+  <a href="https://www.moc.gov.tw/information_306_19723.html" class="text-dark" target="blank">文化資產法</a>
+  <a href="https://uc.watchout.tw/read/MwNwa1ywydnnNQzHo6Cj" class="text-dark" target="blank">文資工作者看中正紀念堂轉型　凌宗魁：還要讓外國遊客繼續認為社會崇拜蔣中正嗎？</a>
+
 </template>
 
-// 挪威CLT木造高層 - https://www.dezeen.com/2019/03/19/mjosta…rkitekter-norway/
-// 70層樓高的木造高層 - https://theurbandeveloper.com/articles/world…osed-for-tokyo
-// 馬爾地夫Resort - https://www.marriott.com/hotels/travel/ml…-vommuli-resort/
-// CLT一小時防火設計 - https://www.clt.info/classification-report-wall-rei-60/
-// 熱裂解 - https://zh.wikipedia.org/wiki/%E7%83%AD%E8%A3%82%E8%A7%A3
-// 炭化(建研所) - https://www.abri.gov.tw/tw/research/dl/914/1
-// 介紹CLT、GLT等木結構材料的論文 - https://www.intechopen.com/books/timber-bu…in-construction
+歷史建築和古蹟之分別

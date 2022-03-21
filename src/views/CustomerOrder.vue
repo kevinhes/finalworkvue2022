@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-5">
+  <div class="container py-5 mt-6">
     <div class="row">
       <div class="offset-md-2 col-md-8">
         <h3 class="mb-5">您想要贊助我們的項目</h3>

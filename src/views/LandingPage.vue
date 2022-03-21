@@ -18,7 +18,7 @@
           <p>
             有人說，興建建築是污染環境的行為<br>
             從原料的開採到現地的施工都帶給環境巨大的負擔<br>
-            這一季我們將會從建築更新，都市物理環境以及光環境<br>
+            這一季我們將會從建築更新以及都市物理環境，
             來跟各位談談建築如何邁向環境友善的第一步
           </p>
           <router-link :to="`/episodes/綠建築`"
@@ -31,12 +31,12 @@
           <h3>歷史建築</h3>
           <p>
             建築不只是提供人們安身的地方<br>
-            隨著時間的推移，建築開始容納了各種記憶以及標籤<br>
+            隨著時間推移，建築開始容納了各種記憶以及標籤<br>
             讓這些老建築開始具有了歷史的價值<br>
-            如何修復？如何展現？是不是全部都規劃成文創園區？<br>
+            如何修復？是否都規劃成文創園區？<br>
             讓我們在這一季告訴你
           </p>
-          <router-link :to="`/episodes/oldbuilding`"
+          <router-link :to="`/episodes/歷史建築`"
           class="btn btn-primary w-lg-25 w-100">前往專輯</router-link>
         </div>
         <div class="col-md-7 order-1 order-lg-2 mb-3 mb-md-0">
@@ -52,8 +52,8 @@
         <div class="col-md-5 d-flex flex-column justify-content-center">
           <h3>電影建築</h3>
           <p>
-            在電影裡面的建築退去了他作為主角的特色<br>
-            成了營造畫面氛圍以及呈現故事發生的載體<br>
+            電影裡面的建築退去了作為主角的特色<br>
+            成了營造氛圍跟呈現故事發生的媒體<br>
             不知道各位是否會好奇，那些出現在電影裡面的建築或是都市景觀來自哪裡？有什麼故事？<br>
             就讓我一起進入建築的電影世界吧！
           </p>
@@ -158,7 +158,8 @@
     </div>
   </section>
   <section class="subscription py-5 bg-light">
-    <div class="container">
+    <LandingSwiper></LandingSwiper>
+    <div class="container d-none d-lg-block">
       <h2 class="text-center mb-5">有您的支持<br>
         建人五四三才能提供更佳的內容
       </h2>
@@ -342,6 +343,8 @@ import 'swiper/modules/navigation/navigation.scss';
 // import required modules
 import Autoplay from 'swiper/modules/autoplay/autoplay';
 
+import LandingSwiper from '@/components/LandingSwiper.vue';
+
 export default {
   methods: {
     toEpisode() {
@@ -352,6 +355,7 @@ export default {
     Swiper,
     SwiperSlide,
     LandingBanner,
+    LandingSwiper,
   },
   setup() {
     return {

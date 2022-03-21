@@ -11,7 +11,7 @@ const routes = [
       },
       {
         path: 'about',
-        component: () => import('../views/About.vue'),
+        component: () => import('../views/AboutView.vue'),
       },
       {
         path: 'episodes/:category',

@@ -72,6 +72,7 @@ $utilities: map-merge(
     ),
     "top": (
       property: top,
+      responsive: true,
       values: $position-values
     ),
     "bottom": (
@@ -546,6 +547,7 @@ $utilities: map-merge(
     // scss-docs-start utils-bg-color
     "background-color": (
       property: background-color,
+      responsive: true,
       class: bg,
       local-vars: (
         "bg-opacity": 1
@@ -559,6 +561,7 @@ $utilities: map-merge(
     ),
     "bg-opacity": (
       css-var: true,
+      responsive: true,
       class: bg-opacity,
       values: (
         10: .1,

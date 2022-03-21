@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-lg-5 py-3">
+  <div class="container py-lg-5 py-3 mt-6">
     <div class="row">
       <div class="offset-lg-2 col-lg-3 mb-3 mb-lg-0">
         <img :src="product.imageUrl" alt="" class="img-fluid">
@@ -13,13 +13,12 @@
           <span class="fs-6 text-muted">{{product.episodeTime}}</span>
         </p>
         <div>
-          <button class="btn btn-outline-primary w-lg-25  w-50 me-lg-3">贊助本季</button>
           <a :href="product.episodeLink" target="blank" class="btn btn-primary w-lg-25 w-50">收聽</a>
         </div>
       </div>
     </div>
     <hr>
-    <div class="row mb-3">
+    <div class="row mb-6">
       <div class="col-lg-3 offset-lg-2 order-3 order-md-2">
         <h5 class="mb-3">參考資料</h5>
         <p v-html="references"></p>

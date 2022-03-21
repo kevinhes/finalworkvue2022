@@ -2,10 +2,10 @@
   <section class="banner  position-relative">
     <div class="container h-100">
       <div class="row justify-content-center align-items-center h-100">
-        <div class="col-md-4 col-lg-2 col-8">
+        <div class="col-lg-2 col-md-4 col-8">
           <img src="https://i.imgur.com/UEe500P.png" alt="建人五四三logo" class="img-fluid mb-4">
           <router-link :to="`/episode/${episodesData[episodesData.length-1]?.id}`"
-          class="btn btn-primary btn-lg w-100">收聽最新單集</router-link>
+          class="btn btn-primary btn-lg w-100">最新單集</router-link>
         </div>
       </div>
     </div>

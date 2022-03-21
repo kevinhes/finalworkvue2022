@@ -1,16 +1,40 @@
 <template>
-  <div class="container py-5">
+  <div class="container pb-5 mt-6">
     <div class="row">
-      <div class="col-lg-3">
-        <h3>贊助建人五四三</h3>
-        <p>啊我就真的很想要錢啊拜託給我一點拉拜託拜託</p>
-      </div>
-      <div class="col-lg-9">
-        <img src="https://i.imgur.com/rjvxM57.png" alt="" class="img-fluid">
+      <div class="col-lg-12">
+        <img src="https://i.imgur.com/hhQCvEa.png" alt="" class="img-fluid">
       </div>
     </div>
-    <hr>
     <div class="row">
+      <div class="col-lg-9 order-1 order-lg-2">
+        <div class="row">
+          <h3 class="mb-5">贊助方案</h3>
+          <div class="col-lg-4 col-md-6 mb-4"
+          v-for="sponsorDetail in sponsorData" :key="sponsorDetail.id">
+            <div class="card h-100">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <div>
+                  <h5 class="card-title">{{sponsorDetail.title}}</h5>
+                  <h5 class="card-title fw-bold text-center">
+                    <span class="align-middle">TWD</span>
+                    <span class="display-5 fw-bold price-detail
+                    align-middle px-2">{{sponsorDetail.price}}</span>
+                    <span class="align-middle">／ 月</span>
+                  </h5>
+                  <p class="fw-bold">方案說明</p>
+                  <p class="card-text text-muted">{{sponsorDetail.description}}</p>
+                  <p class="fw-bold">您可以獲得</p>
+                  <p class="card-text text-muted mb-3" v-html="sponsorDetail.content"></p>
+                </div>
+                <div>
+                  <a href="#" class="btn btn-outline-primary w-100"
+                  @click.prevent="addToCart(sponsorDetail.id)">贊助</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="order-2 older-lg-1 col-lg-3">
         <h3 class="mb-5">您想要贊助我們</h3>
         <ul class="list-unstyled mb-4" style="height:360px;" v-if="cartsData.carts?.length !== 0">
@@ -50,35 +74,6 @@
           </p>
         </div>
         <router-link to="/customerorder" class="btn btn-primary w-100">結帳</router-link >
-      </div>
-      <div class="col-lg-9 order-1 order-lg-2">
-        <div class="row">
-          <h3 class="mb-5">贊助方案</h3>
-          <div class="col-lg-4 mb-4"
-          v-for="sponsorDetail in sponsorData" :key="sponsorDetail.id">
-            <div class="card h-100">
-              <div class="card-body d-flex flex-column justify-content-between">
-                <div>
-                  <h5 class="card-title">{{sponsorDetail.title}}</h5>
-                  <h5 class="card-title fw-bold text-center">
-                    <span class="align-middle">TWD</span>
-                    <span class="display-5 fw-bold price-detail
-                    align-middle px-2">{{sponsorDetail.price}}</span>
-                    <span class="align-middle">／ 月</span>
-                  </h5>
-                  <p class="fw-bold">方案說明</p>
-                  <p class="card-text text-muted">{{sponsorDetail.description}}</p>
-                  <p class="fw-bold">您可以獲得</p>
-                  <p class="card-text text-muted mb-3" v-html="sponsorDetail.content"></p>
-                </div>
-                <div>
-                  <a href="#" class="btn btn-outline-primary w-100"
-                  @click.prevent="addToCart(sponsorDetail.id)">贊助</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
