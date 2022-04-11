@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <router-link class="navbar-brand" to="/dashboard">後台</router-link>
+      <RouterLink class="navbar-brand" to="/dashboard">後台</RouterLink>
       <button class="navbar-toggler" type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarNav"
@@ -11,19 +11,22 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link class="nav-link" to="dashboard">產品列表</router-link>
+            <RouterLink class="nav-link" to="dashboard">產品列表</RouterLink>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="order">訂單管理</router-link>
+            <RouterLink class="nav-link" to="order">訂單管理</RouterLink>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/">返回前台</router-link>
+            <RouterLink class="nav-link" to="/imageUpload">圖片上傳</RouterLink>
+          </li>
+          <li class="nav-item">
+            <RouterLink class="nav-link" to="/">返回前台</RouterLink>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <router-view></router-view>
+  <RouterView />
 </template>
 
 <script>
@@ -32,8 +35,7 @@ export default {
     checkLogin() {
       this.$http.post(`${process.env.VUE_APP_API}/v2/api/user/check`)
         .then(() => {})
-        .catch((error) => {
-          console.dir(error);
+        .catch(() => {
           alert('您尚未登入');
           this.$router.push('/loginpage');
         });

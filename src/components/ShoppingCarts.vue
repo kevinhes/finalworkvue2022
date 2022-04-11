@@ -12,7 +12,8 @@
         class="w-25 border-0 me-2">
         <button class="btn btn-outline-primary btn-sm"
         :class="{'disabled': cartIsLoaging === true}"
-        @click="delCartItem(cartItem.id)">
+        @click="delCartItem(cartItem.id)"
+        type="button">
           <i class="bi bi-x"></i>
         </button>
       </div>
@@ -63,9 +64,7 @@ export default {
           this.cartIsLoaging = false;
           this.$emit('getCartsData');
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
     delCartItem(id) {
       this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
@@ -73,9 +72,7 @@ export default {
           alert(res.data.message);
           this.$emit('getCartsData');
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
   },
 };

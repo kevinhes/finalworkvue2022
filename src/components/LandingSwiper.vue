@@ -56,7 +56,7 @@
           </div>
           <div class="footer">
             <a href="#" class="btn btn-primary mx-auto d-block w-50
-            mb-5 btn-lg">按我訂閱</a>
+            mb-5 btn-lg" @click.prevent="addToCarts('-MyBvXgqnJbrrHKUiPGZ')">按我訂閱</a>
           </div>
         </div>
       </div>
@@ -109,7 +109,8 @@
             </ul>
           </div>
           <div>
-            <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg">按我訂閱</a>
+            <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg"
+            @click.prevent="addToCarts('-MyCJMkfZIuIxqL8xrPV')">按我訂閱</a>
           </div>
         </div>
       </div>
@@ -178,7 +179,8 @@
             </ul>
           </div>
           <div>
-            <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg">按我訂閱</a>
+            <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg"
+            @click.prevent="addToCarts('-MyCJXtEApZcq1S6ga8f')">按我訂閱</a>
           </div>
         </div>
       </div>
@@ -198,6 +200,11 @@ import 'swiper/modules/pagination/pagination.scss';
 import Pagination from 'swiper/modules/pagination/pagination';
 
 export default {
+  methods: {
+    addToCarts(id) {
+      this.$emit('addToCarts', id);
+    },
+  },
   components: {
     Swiper,
     SwiperSlide,

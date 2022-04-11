@@ -14,7 +14,8 @@
      <a class="page-link" href="#"
      @click.prevent="pageChange(page)">{{ page }}</a>
     </li>
-    <li class="page-item">
+    <li class="page-item"
+    :class="{'disabled': pagination.has_next === false}">
      <a class="page-link" href="#"
      @click.prevent="pageChange(pagination.total_pages)">Last</a>
     </li>

@@ -10,6 +10,10 @@ import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import 'material-icons/iconfont/material-icons.css';
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import App from './App.vue';
 import router from './router';
 
@@ -25,9 +29,17 @@ setLocale('zh_TW');
 
 const app = createApp(App);
 
+app.use(VueSweetalert2);
 app.component('Form', Form);
 app.component('Field', Field);
 app.component('ErrorMessage', ErrorMessage);
+app.use(VueLoading);
 app.use(VueAxios, axios);
 app.use(router);
 app.mount('#app');
+
+router.beforeEach((to) => {
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  }
+});

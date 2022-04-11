@@ -24,7 +24,7 @@
             登入
           </button>
           <button class="btn btn-lg btn-outline-primary w-100 mt-3"
-          @click="backToHome">
+          @click="backToHome" type="button">
             回到客戶產品頁
           </button>
         </Form>
@@ -53,14 +53,11 @@ export default {
     onSubmit() {
       this.$http.post(`${process.env.VUE_APP_API}/v2/admin/signin`, this.user)
         .then((res) => {
-          console.log(res);
           const { token, expired } = res.data;
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}; path=/`;
           this.$router.push('/dashboard');
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
   },
 };

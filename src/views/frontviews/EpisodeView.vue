@@ -2,7 +2,7 @@
   <div class="container py-lg-5 py-3 mt-6">
     <div class="row">
       <div class="offset-lg-2 col-lg-3 mb-3 mb-lg-0">
-        <img :src="product.imageUrl" alt="" class="img-fluid">
+        <img :src="product.imageUrl" :alt="'單集封面'" class="img-fluid">
       </div>
       <div class="col-lg-5 d-flex flex-column justify-content-center">
         <h5>
@@ -12,8 +12,16 @@
         <p class="mb-4 text-muted">建人五四三
           <span class="fs-6 text-muted">{{product.episodeTime}}</span>
         </p>
-        <div>
-          <a :href="product.episodeLink" target="blank" class="btn btn-primary w-lg-25 w-50">收聽</a>
+        <div class="row">
+          <div class="col-md-5 g-md-2 col">
+            <button @click="audition" type="button"
+            class="btn btn-outline-primary w-100 py-2">試聽十分鐘</button>
+            <audio id="audio" :src="product.audition"></audio>
+          </div>
+          <div class="col-md-5 g-md-2 col">
+            <a :href="product.episodeLink" target="blank"
+            class="btn btn-primary w-100 py-2">Apple podcast上收聽</a>
+          </div>
         </div>
       </div>
     </div>
@@ -56,7 +64,7 @@
         >
           <swiper-slide v-for="img in productsData" :key="img.id">
             <a href="#" @click.prevent="changeEpisode(img.id)">
-              <img :src="img.imageUrl" alt="">
+              <img :src="img.imageUrl" :alt="img.title">
             </a>
           </swiper-slide>
         </swiper>
@@ -83,12 +91,14 @@ export default {
       contentText: '',
       descriptionText: '',
       references: '',
+      searchProductId: '',
     };
   },
   components: {
     Swiper,
     SwiperSlide,
   },
+  inject: ['emitter'],
   methods: {
     getProductData(productId) {
       let singleId = null;
@@ -99,13 +109,11 @@ export default {
       }
       this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/product/${singleId}`)
         .then((res) => {
-          console.log(res);
           this.product = res.data.product;
           this.getProductsData(1, this.product.category);
           this.textCut();
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
         });
     },
     getProductsData(page = 1, category = '') {
@@ -113,9 +121,7 @@ export default {
         .then((res) => {
           this.productsData = res.data.products;
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
     textCut() {
       const newContent = this.product.content.split('\n');
@@ -148,15 +154,38 @@ export default {
       this.$router.push(`/episode/${id}`);
       this.getProductData(id);
     },
+    audition() {
+      const audio = document.querySelector('#audio');
+      if (audio.currentTime === 0 || audio.paused === true) {
+        audio.play();
+        setTimeout(() => {
+          audio.pause();
+          audio.currentTime = 0;
+        }, 100000);
+      } else if (audio.currentTime !== 0) {
+        audio.pause();
+      }
+    },
   },
   setup() {
     return {
       modules: [Pagination],
     };
   },
+  created() {
+    this.emitter.on('pagereload', (id) => {
+      this.searchProductId = id.searchId;
+      this.getProductData(this.searchProductId);
+    });
+  },
   mounted() {
     this.getProductData();
   },
+  // watch: {
+  //   searchId() {
+  //     this.getProductData();
+  //   },
+  // },
 };
 </script>
 

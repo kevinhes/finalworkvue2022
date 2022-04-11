@@ -127,9 +127,7 @@ export default {
           this.$emit('change-paid', id);
           this.orderModal.hide();
         })
-        .catch((error) => {
-          console.dir(error);
-        });
+        .catch(() => {});
     },
   },
   mounted() {

@@ -16,16 +16,21 @@
       <div class="col-md-6 d-none d-lg-block">
         <ul class="list-unstyled d-flex mb-0">
           <li>
-            <router-link to="/" class="nav-link text-light">首頁</router-link>
+            <button type="button" to="/"
+            class="nav-link text-light position-relative
+            bg-dark border-0">首頁</button>
           </li>
           <li>
-            <router-link to="/about" class="nav-link text-light">關於我們</router-link>
+            <RouterLink to="/about"
+            class="nav-link text-light position-relative">關於我們</RouterLink>
           </li>
           <li>
-            <router-link to="/episodes/all" class="nav-link text-light">節目列表</router-link>
+            <RouterLink to="/episodes/all"
+            class="nav-link text-light position-relative">節目列表</RouterLink>
           </li>
           <li>
-            <router-link to="/sponsorus" class="nav-link text-light">贊助我們</router-link>
+            <RouterLink to="/sponsorus"
+            class="nav-link text-light position-relative">贊助我們</RouterLink>
           </li>
         </ul>
         <ul class="list-unstyled d-flex">
@@ -61,16 +66,16 @@
       <div class="col-md-7">
         <ul class="list-unstyled d-flex mb-0">
           <li>
-            <router-link to="/" class="nav-link text-light">首頁</router-link>
+            <RouterLink to="/" class="nav-link text-light">首頁</RouterLink>
           </li>
           <li>
-            <router-link to="/about" class="nav-link text-light">關於我們</router-link>
+            <RouterLink to="/about" class="nav-link text-light">關於我們</RouterLink>
           </li>
           <li>
-            <router-link to="/episodes/all" class="nav-link text-light">節目列表</router-link>
+            <RouterLink to="/episodes/all" class="nav-link text-light">節目列表</RouterLink>
           </li>
           <li>
-            <router-link to="/sponsorus" class="nav-link text-light">贊助我們</router-link>
+            <RouterLink to="/sponsorus" class="nav-link text-light">贊助我們</RouterLink>
           </li>
         </ul>
       </div>

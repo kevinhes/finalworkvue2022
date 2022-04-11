@@ -40,7 +40,7 @@
                 <label for="imageUrl" class="form-label">回傳圖片網址</label>
                 <input type="text" class="form-control mb-2" v-model="imgUploadUrl"
                 placeholder="請上傳圖片">
-                <button class="btn btn-warning w-100"
+                <button class="btn btn-warning w-100" type="button"
                 @click="imgUploadUrl = ''">清除網址</button>
               </div>
               <div class="mb-2" v-if="Array.isArray(productData.imagesUrl)">
@@ -54,13 +54,13 @@
                 </div>
                 <div v-if="!productData.imagesUrl.length ||
                 productData.imagesUrl[productData.imagesUrl.length-1]">
-                  <button class="btn btn-outline-primary btn-sm d-block w-100"
+                  <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"
                   @click="productData.imagesUrl.push('')">
                     新增圖片
                   </button>
                 </div>
                 <div v-else>
-                  <button class="btn btn-outline-danger btn-sm d-block w-100"
+                  <button class="btn btn-outline-danger btn-sm d-block w-100" type="button"
                   @click="productData.imagesUrl.pop()">
                     刪除圖片
                   </button>
@@ -68,7 +68,7 @@
               </div>
               <div v-else>
                 <button class="btn btn-outline-primary btn-sm d-block w-100"
-                @click="createImg">
+                @click="createImg" type="button">
                   新增圖片
                 </button>
               </div>
@@ -191,8 +191,7 @@ export default {
             this.productModal.hide();
             this.$emit('get-data');
           })
-          .catch((error) => {
-            console.log(error);
+          .catch(() => {
           });
       } else if (this.isNew === false) {
         this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/admin/product/${id}`, obj)
@@ -201,9 +200,7 @@ export default {
             this.productModal.hide();
             this.$emit('get-data');
           })
-          .catch((error) => {
-            console.log(error);
-          });
+          .catch(() => {});
       }
     },
     openModal() {
@@ -222,9 +219,7 @@ export default {
           this.imgUploadUrl = res.data.imageUrl;
           this.$refs.imageFile.value = '';
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
   },
   mounted() {

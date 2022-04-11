@@ -15,20 +15,20 @@
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="card-title mb-0">{{cartItem.product.title}}</h5>
-                <button href="#" class="btn btn-outline-primary btn-sm"
+                <button type="button" href="#" class="btn btn-outline-primary btn-sm"
                 @click="delCartItem(cartItem.id)">
                   <i class="bi bi-x"></i>
                 </button>
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div>
-                  <button class="border-0 bg-white"
+                  <button class="border-0 bg-white" type="button"
                   @click="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty-=1)">
                     <i class="bi bi-dash-lg fw-bold"></i>
                   </button>
                   <input type="number" v-model="cartItem.qty" class="border-0 w-10 text-center"
                   @change="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty)">
-                  <button class="border-0 bg-white"
+                  <button class="border-0 bg-white" type="button"
                   @click="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty+=1)">
                     <i class="bi bi-plus-lg fw-bold"></i>
                   </button>
@@ -70,8 +70,9 @@
           <span class="align-middle ms-3">元</span>
         </p>
       </div>
-      <router-link to="/customerorder" class="btn btn-primary w-100"
-      @click="closeOffcanvas">結帳</router-link>
+      <RouterLink to="/customerorder" class="btn btn-primary w-100"
+      :class="{'disabled' : cartsData.carts?.length === 0}"
+      @click="closeOffcanvas">結帳</RouterLink>
     </div>
   </div>
 </template>
@@ -96,25 +97,30 @@ export default {
         .then((res) => {
           this.cartsData = res.data.data;
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
     updateCartNum(id, productId, qty) {
-      const obj = {
-        data: {
-          product_id: productId,
-          qty,
-        },
-      };
-      this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
-        .then((res) => {
-          this.getCartsData();
-          alert(res.data.message);
-        })
-        .catch((error) => {
-          console.dir(error);
-        });
+      if (qty === 0) {
+        this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
+          .then((res) => {
+            this.getCartsData();
+            alert(res.data.message);
+          })
+          .catch(() => {});
+      } else {
+        const obj = {
+          data: {
+            product_id: productId,
+            qty,
+          },
+        };
+        this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
+          .then((res) => {
+            this.getCartsData();
+            alert(res.data.message);
+          })
+          .catch(() => {});
+      }
     },
     delCartItem(id) {
       this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
@@ -122,9 +128,7 @@ export default {
           alert(res.data.message);
           this.getCartsData();
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
     closeOffcanvas() {
       this.shoppingCarts.hide();

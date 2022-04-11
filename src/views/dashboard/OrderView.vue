@@ -76,12 +76,10 @@ export default {
     getOrdersData(page = 1) {
       this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/admin/orders?page=${page}`)
         .then((res) => {
-          console.log(res);
           this.ordersData = res.data.orders;
           this.pagination = res.data.pagination;
         })
-        .catch((error) => {
-          console.dir(error);
+        .catch(() => {
         });
     },
     delOrder(id) {
@@ -90,9 +88,7 @@ export default {
           alert(res.data.message);
           this.getOrdersData();
         })
-        .catch((error) => {
-          console.dir(error);
-        });
+        .catch(() => {});
     },
     timeStapChange(time) {
       const orderTimeStamp = new Date(time);

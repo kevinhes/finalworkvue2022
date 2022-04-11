@@ -3,14 +3,14 @@
   <section class="season py-lg-5 py-4">
     <div class="container">
       <p class="h2 text-center">大家好，我們是建人五四三</p>
-      <p class="text-center h5 mb-lg-5 mb-3">
+      <p class="text-center fs-5 fw-bold mb-lg-5 mb-3">
         在這個影像快速來去的世界 <br>
         讓我們用平易近人的方式來跟你談談建築的五四三 <br>
         如果你關心...
       </p>
       <div class="row mb-4 position-relative">
         <div class="col-md-7 mb-3 mb-md-0">
-          <div style="background-image: url(https://images.unsplash.com/photo-1562408954-be39449c4962?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2148&q=80);"
+          <div style="background-image: url(https://storage.googleapis.com/vue-course-api.appspot.com/kevinhesapi/1649232887095.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=ihuTQ2lrXokLMeIW%2BJyo7uoFkp%2FTnm61cOu36BdoT5Go7BDGIV4PlCGKMxxOCqqTRQXLqlP%2BRFjOkeNu22XBW5JkBWevrhv3zxzt7wkHmK47A2PgHvz9yzc1X2Bd72kJuubqVHtx3AqW3oHo8pDeqCul67xcRXAK9dcNMGcGaedxkRUthg1fzAjcHaMeALVY%2Fbs5f%2FatZ6z1U%2FY%2F0zUFdqr5II3iyLj3Fqer4N2sZI6xisfDoMCGR4e1fdz4jzf1qIUg0grKt3gV4Iua9hgeQszEWiASUOxk5Y1p5ECvUWyEPBXZyLh8NdJSCTPWuE8KPRcTvk3ZNFYKspQmnxz24A%3D%3D);"
           class="season-banner"></div>
         </div>
         <div class="col-md-5 d-flex flex-column justify-content-center">
@@ -21,8 +21,8 @@
             這一季我們將會從建築更新以及都市物理環境，
             來跟各位談談建築如何邁向環境友善的第一步
           </p>
-          <router-link :to="`/episodes/綠建築`"
-          class="btn btn-primary w-lg-25 w-100">前往專輯</router-link>
+          <RouterLink :to="`/episodes/綠建築`"
+          class="btn btn-primary w-lg-25 w-100">前往專輯</RouterLink>
         </div>
       </div>
       <div class="row mb-4">
@@ -36,17 +36,17 @@
             如何修復？是否都規劃成文創園區？<br>
             讓我們在這一季告訴你
           </p>
-          <router-link :to="`/episodes/歷史建築`"
-          class="btn btn-primary w-lg-25 w-100">前往專輯</router-link>
+          <RouterLink :to="`/episodes/歷史建築`"
+          class="btn btn-primary w-lg-25 w-100">前往專輯</RouterLink>
         </div>
         <div class="col-md-7 order-1 order-lg-2 mb-3 mb-md-0">
-          <div style="background-image: url(https://images.unsplash.com/photo-1526034407304-e9573cc7d20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80);"
+          <div style="background-image: url(https://storage.googleapis.com/vue-course-api.appspot.com/kevinhesapi/1649233062971.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=CdsgAT9MhoqdYN5Kt0CRSOWN%2B0Vg3v6j3LjICNXM7yLxL46qXtPvBJdKS%2FOp1HYoOucaN7YxPLGzc%2BrBxM9s3DHaEmmNmgGhi4DmB99ov5B6WjsvbQescz5MJ2S4sSuISUC0lCsJl1txF72c9zEutr9upsKLSfHQyo1kWaK5q6U8FOOTvZus8CZERZHp%2FLY4%2FK1Q60lsjQYqAFexikv0US7i1y%2FIzqBnSgfw6irAYwRw5DwvzmeP3jrcE%2BZOAY6z%2B7iymFGRrXIvRIEvj9%2BoP10JV4QOFutfrdZbTkHEWkeN2ykrCoaHrANcN8ecs%2F03XepvWsQyIyWmqbisLT1%2FPA%3D%3D);"
           class="season-banner"></div>
         </div>
       </div>
       <div class="row mb-3">
         <div class="col-md-7 mb-3 mb-md-0">
-          <div style="background-image: url(https://images.unsplash.com/photo-1588417363377-3f252ee8a94c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80);"
+          <div style="background-image: url(https://storage.googleapis.com/vue-course-api.appspot.com/kevinhesapi/1649233267995.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=js2Xo59J0kHB74RQEZMl4OkWcBngrW8BX4Saq8eV7hRc3xOdqLKbuP2AhwS0Ly9G9TQfQtUeluATBRXBwqLdVo3JMDny3zUrkEAxHjMptpfQuL2eDJO%2B0MKpnUb1VL%2BWo76CdAcMpWYT8lDekMP4A9JkR%2FFBCYrSLmZfUlhJ6dKWJrFcOzA2E4%2BJblAW10oVZxPlG51fBVjjqjLXXlSAIzuvFPgRohH3A4oiziA%2Ba7UxSPq48sizzPfgeP%2Bu6t4kIROoW%2FJoVDY8Rk26zww6awdDovhzWOIgqpsuNqbgNRwYxV9GP9FzwRxvLDrX5RYrkikEykRoMYzIw2zr7hxO6w%3D%3D);"
           class="season-banner"></div>
         </div>
         <div class="col-md-5 d-flex flex-column justify-content-center">
@@ -57,8 +57,8 @@
             不知道各位是否會好奇，那些出現在電影裡面的建築或是都市景觀來自哪裡？有什麼故事？<br>
             就讓我一起進入建築的電影世界吧！
           </p>
-          <router-link :to="`/episodes/moviebuilding`"
-          class="btn btn-primary w-lg-25 w-100">前往專輯</router-link>
+          <RouterLink :to="`/episodes/電影建築`"
+          class="btn btn-primary w-lg-25 w-100">前往專輯</RouterLink>
         </div>
       </div>
     </div>
@@ -69,6 +69,7 @@
         聽眾回應
       </h2>
       <swiper
+        :pagination="Pagination"
         :spaceBetween="30"
         :centeredSlides="true"
         :autoplay="{
@@ -158,7 +159,7 @@
     </div>
   </section>
   <section class="subscription py-5 bg-light">
-    <LandingSwiper></LandingSwiper>
+    <LandingSwiper @add-to-carts="addToCarts"></LandingSwiper>
     <div class="container d-none d-lg-block">
       <h2 class="text-center mb-5">有您的支持<br>
         建人五四三才能提供更佳的內容
@@ -199,7 +200,7 @@
               </div>
               <div class="footer">
                 <a href="#" class="btn btn-primary mx-auto d-block w-50
-                mb-5 btn-lg">按我訂閱</a>
+                mb-5 btn-lg" @click.prevent="addToCarts('-MyBvXgqnJbrrHKUiPGZ')">按我訂閱</a>
               </div>
             </div>
           </div>
@@ -253,7 +254,8 @@
                 </ul>
               </div>
               <div>
-                <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg">按我訂閱</a>
+                <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg"
+                @click.prevent="addToCarts('-MyCJMkfZIuIxqL8xrPV')">按我訂閱</a>
               </div>
             </div>
           </div>
@@ -322,7 +324,8 @@
                 </ul>
               </div>
               <div>
-                <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg">按我訂閱</a>
+                <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg"
+                @click.prevent="addToCarts('-MyCJXtEApZcq1S6ga8f')">按我訂閱</a>
               </div>
             </div>
           </div>
@@ -335,10 +338,10 @@
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue';
 import LandingBanner from '@/components/LandingBanner.vue';
+import Pagination from 'swiper/modules/pagination/pagination';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
-import 'swiper/modules/navigation/navigation.scss';
 
 // import required modules
 import Autoplay from 'swiper/modules/autoplay/autoplay';
@@ -346,9 +349,39 @@ import Autoplay from 'swiper/modules/autoplay/autoplay';
 import LandingSwiper from '@/components/LandingSwiper.vue';
 
 export default {
+  data() {
+    return {
+      fullPage: true,
+    };
+  },
   methods: {
     toEpisode() {
       this.$router.push('/episodes');
+    },
+    showAlert() {
+      // Use sweetalert2
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: '已加入購物車',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+    },
+    addToCarts(id) {
+      const obj = {
+        data: {
+          product_id: id,
+          qty: 1,
+        },
+      };
+      this.$http.post(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart`, obj)
+        .then(() => {
+          this.showAlert();
+        })
+        .catch(() => {});
     },
   },
   components: {
@@ -359,7 +392,8 @@ export default {
   },
   setup() {
     return {
-      modules: [Autoplay],
+      modules: [Autoplay, Pagination],
+      Pagination: { clickable: true },
     };
   },
 };
@@ -391,11 +425,13 @@ export default {
   align-items: center;
 }
 
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+:deep .swiper-pagination {
+  bottom: -5px;
+}
+
+:deep .swiper-pagination-bullet-active {
+  color: #fff;
+  background: #be1e2d;
 }
 
 </style>

@@ -77,9 +77,7 @@ export default {
           this.$refs.form.resetForm();
           this.$emit('getCartsData');
         })
-        .catch((error) => {
-          console.dir(error);
-        });
+        .catch(() => {});
     },
   },
 };

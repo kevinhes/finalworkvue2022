@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ShoppingCarts from '@/components/ShoppingCart.vue';
+import ShoppingCarts from '@/components/ShoppingCarts.vue';
 import Validate from '@/components/Validate.vue';
 
 export default {
@@ -32,9 +32,7 @@ export default {
         .then((res) => {
           this.cartsData = res.data.data;
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
   },
   mounted() {

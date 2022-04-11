@@ -16,11 +16,15 @@
     "bootstrap-icons": "^1.8.1",
     "core-js": "^3.6.5",
     "material-icons": "^1.10.7",
+    "mitt": "^3.0.0",
+    "sweetalert2": "^11.4.8",
     "swiper": "^8.0.7",
     "vee-validate": "^4.5.9",
     "vue": "^3.0.0",
     "vue-axios": "^3.4.1",
-    "vue-router": "^4.0.0-0"
+    "vue-loading-overlay": "^5.0.3",
+    "vue-router": "^4.0.0-0",
+    "vue-sweetalert2": "^5.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",

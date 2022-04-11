@@ -1,14 +1,26 @@
 <template>
   <FrontNavbar></FrontNavbar>
-  <router-view></router-view>
+  <RouterView v-if="isRouterAlive"/>
   <FrontFooter></FrontFooter>
 </template>
 
 <script>
 import FrontNavbar from '@/components/FrontNavbar.vue';
 import FrontFooter from '@/components/FrontFooter.vue';
+import emitter from '@/methods/EventBus';
 
 export default {
+  data() {
+    return {
+      isRouterAlive: true,
+    };
+  },
+  provide() {
+    return {
+      reload: this.reload,
+      emitter,
+    };
+  },
   components: {
     FrontNavbar,
     FrontFooter,
@@ -16,6 +28,10 @@ export default {
   methods: {
     openShoppingCarts() {
       this.$refs.shoppingCarts.openShoppingCarts();
+    },
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(() => { this.isRouterAlive = true; });
     },
   },
 };

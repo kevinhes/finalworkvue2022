@@ -2,7 +2,7 @@
   <div class="container pb-5 mt-6">
     <div class="row">
       <div class="col-lg-12">
-        <img src="https://i.imgur.com/hhQCvEa.png" alt="" class="img-fluid">
+        <img src="https://storage.googleapis.com/vue-course-api.appspot.com/kevinhesapi/1649244256173.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=dzmjeY6xWc%2BmWtMU2N%2FuaBbkbPI9IEaXzAYEx9xA88yx0SS0VlTHM8%2BEjdxc9yIDIjmUqysxHgpUp7RvRIoepOXNfEyr2n%2FwCJXfqbbnEUwKKxAXHPjZMvyCWSDOtv8EQsqixSwWp3ZOix1Ur%2Fw%2BCRctfF0Z12KjA7GjsCDIJ7ux2CvUn9dZoW5WHikzih0gkUYAXIVKEfBe2UJ1p%2B4ZdUS%2BOQfCYv2IiQSoGgw9JsYDXlgwhXra1X1MlmM8AMonMdZveVUmlgCCZ%2FfsAS%2BsmRIJT9bjdOgfw4RT%2FglTqAiYdBrjkKK0w2lNAkAFo%2BRByEuI2rIZpRKYDvTNDLGpug%3D%3D" alt="建人五四三贊助頁面" class="img-fluid">
       </div>
     </div>
     <div class="row">
@@ -28,6 +28,7 @@
                 </div>
                 <div>
                   <a href="#" class="btn btn-outline-primary w-100"
+                  :class="{'disabled': isLoading === true}"
                   @click.prevent="addToCart(sponsorDetail.id)">贊助</a>
                 </div>
               </div>
@@ -47,7 +48,7 @@
                 <input type="number" v-model="cartItem.qty"
                 @change="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty)"
                 class="w-25 border-0 me-2">
-                <button class="btn btn-outline-primary btn-sm"
+                <button type="button" class="btn btn-outline-primary btn-sm"
                 @click="delCartItem(cartItem.id)">
                   <i class="bi bi-x"></i>
                 </button>
@@ -73,7 +74,8 @@
             <span class="align-middle ms-3">元</span>
           </p>
         </div>
-        <router-link to="/customerorder" class="btn btn-primary w-100">結帳</router-link >
+        <RouterLink to="/customerorder" class="btn btn-primary w-100"
+        :class="{'disabled': cartsData.carts?.length === 0}">結帳</RouterLink >
       </div>
     </div>
   </div>
@@ -85,19 +87,26 @@ export default {
     return {
       sponsorData: [],
       cartsData: {},
+      isLoading: false,
     };
   },
   methods: {
     getProductsData() {
+      const loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        onCancel: this.onCancel,
+      });
       this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/products/all`)
         .then((res) => {
           this.sponsorData = res.data.products.filter((i) => i.category === '贊助');
+          loader.hide();
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
     addToCart(id, qty = 1) {
+      this.isLoading = true;
       const obj = {
         data: {
           product_id: id,
@@ -108,10 +117,9 @@ export default {
         .then((res) => {
           alert(res.data.message);
           this.getCartsData();
+          this.isLoading = false;
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
     delCartItem(id) {
       this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
@@ -119,34 +127,37 @@ export default {
           alert(res.data.message);
           this.getCartsData();
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
     getCartsData() {
       this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart`)
         .then((res) => {
           this.cartsData = res.data.data;
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
     updateCartNum(id, productId, qty) {
-      const obj = {
-        data: {
-          product_id: productId,
-          qty,
-        },
-      };
-      this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
-        .then((res) => {
-          alert(res.data.message);
-          this.getCartsData();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (qty === 0) {
+        this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
+          .then((res) => {
+            this.getCartsData();
+            alert(res.data.message);
+          })
+          .catch(() => {});
+      } else {
+        const obj = {
+          data: {
+            product_id: productId,
+            qty,
+          },
+        };
+        this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
+          .then((res) => {
+            alert(res.data.message);
+            this.getCartsData();
+          })
+          .catch(() => {});
+      }
     },
   },
   mounted() {

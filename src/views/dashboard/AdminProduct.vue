@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="text-end mt-4">
-      <button class="btn btn-primary" @click="openModal('new')">
+      <button type="button" class="btn btn-primary" @click="openModal('new')">
         建立新的產品
       </button>
     </div>
@@ -79,9 +79,7 @@ export default {
           this.productsData = res.data.products;
           this.pagination = res.data.pagination;
         })
-        .catch((error) => {
-          console.dir(error);
-        });
+        .catch(() => {});
     },
     openModal(status, product) {
       if (status === 'new') {
