@@ -13,7 +13,8 @@
         </div>
         <div class="modal-body">
           <ul class="row list-unstyled">
-            <li v-for="(episode) in searchEpisode" :key="episode.id" class="col-md-4 col-12 mb-3">
+            <li v-for="(episode) in searchEpisode" :key="episode.id"
+            class="col-md-6 col-lg-4 col-12 mb-3">
               <div class="card flex-row flex-md-column h-100">
                 <img :src="episode.imageUrl"
                 class="card-img-top d-none d-md-block" :alt="episode.title" v-if="episode.imageUrl">

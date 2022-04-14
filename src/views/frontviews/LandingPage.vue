@@ -354,6 +354,7 @@ export default {
       fullPage: true,
     };
   },
+  inject: ['emitter'],
   methods: {
     toEpisode() {
       this.$router.push('/episodes');
@@ -380,6 +381,7 @@ export default {
       this.$http.post(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart`, obj)
         .then(() => {
           this.showAlert();
+          this.emitter.emit('cartsNumChange');
         })
         .catch(() => {});
     },

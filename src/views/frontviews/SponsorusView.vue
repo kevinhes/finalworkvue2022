@@ -47,7 +47,7 @@
               <div class="d-flex justify-content-end align-items-center">
                 <input type="number" v-model="cartItem.qty"
                 @change="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty)"
-                class="w-25 border-0 me-2">
+                class="w-25 border-0 me-2" :readonly="isLoading">
                 <button type="button" class="btn btn-outline-primary btn-sm"
                 @click="delCartItem(cartItem.id)">
                   <i class="bi bi-x"></i>
@@ -90,6 +90,7 @@ export default {
       isLoading: false,
     };
   },
+  inject: ['emitter'],
   methods: {
     getProductsData() {
       const loader = this.$loading.show({
@@ -114,20 +115,49 @@ export default {
         },
       };
       this.$http.post(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart`, obj)
-        .then((res) => {
-          alert(res.data.message);
+        .then(() => {
+          this.addCartAlert();
           this.getCartsData();
           this.isLoading = false;
+          this.emitter.emit('cartsNumChange');
         })
         .catch(() => {});
     },
+    addCartAlert() {
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: '已加入購物車',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+    },
     delCartItem(id) {
-      this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
-        .then((res) => {
-          alert(res.data.message);
-          this.getCartsData();
-        })
-        .catch(() => {});
+      this.$swal({
+        icon: 'warning',
+        title: '確定要刪除嗎？',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '確定',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
+            .then(() => {
+              this.getCartsData();
+              this.emitter.emit('cartsNumChange');
+              this.$swal({
+                title: '已刪除',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            })
+            .catch(() => {});
+        }
+      });
     },
     getCartsData() {
       this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart`)
@@ -137,13 +167,9 @@ export default {
         .catch(() => {});
     },
     updateCartNum(id, productId, qty) {
+      this.isLoading = true;
       if (qty === 0) {
-        this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
-          .then((res) => {
-            this.getCartsData();
-            alert(res.data.message);
-          })
-          .catch(() => {});
+        this.delCartItem(id);
       } else {
         const obj = {
           data: {
@@ -152,9 +178,18 @@ export default {
           },
         };
         this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
-          .then((res) => {
-            alert(res.data.message);
+          .then(() => {
+            this.$swal({
+              toast: true,
+              position: 'top-end',
+              icon: 'success',
+              title: '已調整購物車',
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true,
+            });
             this.getCartsData();
+            this.isLoading = false;
           })
           .catch(() => {});
       }

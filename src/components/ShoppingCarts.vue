@@ -49,30 +49,59 @@ export default {
   },
   props: ['cartsData'],
   emits: ['getCartsData'],
+  inject: ['emitter'],
   methods: {
     updateCartNum(id, productId, qty) {
       this.cartIsLoaging = true;
-      const obj = {
-        data: {
-          product_id: productId,
-          qty,
-        },
-      };
-      this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
-        .then((res) => {
-          alert(res.data.message);
-          this.cartIsLoaging = false;
-          this.$emit('getCartsData');
-        })
-        .catch(() => {});
+      if (qty === 0) {
+        this.delCartItem(id);
+      } else {
+        const obj = {
+          data: {
+            product_id: productId,
+            qty,
+          },
+        };
+        this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
+          .then(() => {
+            this.$swal({
+              icon: 'success',
+              title: '已調整購物車',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.cartIsLoaging = false;
+            this.$emit('getCartsData');
+            this.emitter.emit('cartsNumChange');
+          })
+          .catch(() => {});
+      }
     },
     delCartItem(id) {
-      this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
-        .then((res) => {
-          alert(res.data.message);
-          this.$emit('getCartsData');
-        })
-        .catch(() => {});
+      this.$swal({
+        icon: 'warning',
+        title: '確定要刪除嗎？',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '確定',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
+            .then(() => {
+              this.$emit('getCartsData');
+              this.emitter.emit('cartsNumChange');
+              this.showConfirmButton = false;
+              this.$swal({
+                title: '已刪除',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            })
+            .catch(() => {});
+        }
+      });
     },
   },
 };

@@ -2,7 +2,7 @@
   <div class="container py-lg-5 py-3 mt-6">
     <div class="row">
       <div class="offset-lg-2 col-lg-3 mb-3 mb-lg-0">
-        <img :src="product.imageUrl" :alt="'單集封面'" class="img-fluid">
+        <img :src="product.imageUrl" :alt="product.title" class="img-fluid">
       </div>
       <div class="col-lg-5 d-flex flex-column justify-content-center">
         <h5>
@@ -13,14 +13,20 @@
           <span class="fs-6 text-muted">{{product.episodeTime}}</span>
         </p>
         <div class="row">
-          <div class="col-md-5 g-md-2 col">
+          <div class="col-md-5 g-md-2 col position-relative">
+            <div class="position-absolute start-15 top-50
+            translate-middle" v-if="isPlayed">
+              <i class="bi bi-volume-up text-primary fs-3"></i>
+            </div>
             <button @click="audition" type="button"
             class="btn btn-outline-primary w-100 py-2">試聽十分鐘</button>
             <audio id="audio" :src="product.audition"></audio>
           </div>
           <div class="col-md-5 g-md-2 col">
             <a :href="product.episodeLink" target="blank"
-            class="btn btn-primary w-100 py-2">Apple podcast上收聽</a>
+            class="btn btn-primary w-100 py-2 d-none d-md-block">Apple podcast上收聽</a>
+            <a :href="product.episodeLink" target="blank"
+            class="btn btn-primary w-100 py-2 d-md-none">Apple podcast</a>
           </div>
         </div>
       </div>
@@ -92,6 +98,7 @@ export default {
       descriptionText: '',
       references: '',
       searchProductId: '',
+      isPlayed: false,
     };
   },
   components: {
@@ -157,13 +164,16 @@ export default {
     audition() {
       const audio = document.querySelector('#audio');
       if (audio.currentTime === 0 || audio.paused === true) {
+        this.isPlayed = true;
         audio.play();
         setTimeout(() => {
           audio.pause();
           audio.currentTime = 0;
-        }, 100000);
+          this.isPlayed = false;
+        }, 600000);
       } else if (audio.currentTime !== 0) {
         audio.pause();
+        this.isPlayed = false;
       }
     },
   },
@@ -181,11 +191,6 @@ export default {
   mounted() {
     this.getProductData();
   },
-  // watch: {
-  //   searchId() {
-  //     this.getProductData();
-  //   },
-  // },
 };
 </script>
 

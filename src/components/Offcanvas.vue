@@ -101,12 +101,7 @@ export default {
     },
     updateCartNum(id, productId, qty) {
       if (qty === 0) {
-        this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
-          .then((res) => {
-            this.getCartsData();
-            alert(res.data.message);
-          })
-          .catch(() => {});
+        this.delCartItem();
       } else {
         const obj = {
           data: {
@@ -115,20 +110,43 @@ export default {
           },
         };
         this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
-          .then((res) => {
+          .then(() => {
             this.getCartsData();
-            alert(res.data.message);
+            this.$emit('cartsNumChange');
+            this.$swal({
+              icon: 'success',
+              title: '已調整購物車',
+              showConfirmButton: false,
+              timer: 1500,
+            });
           })
           .catch(() => {});
       }
     },
     delCartItem(id) {
-      this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
-        .then((res) => {
-          alert(res.data.message);
-          this.getCartsData();
-        })
-        .catch(() => {});
+      this.$swal({
+        icon: 'warning',
+        title: '確定要刪除嗎？',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '確定',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
+            .then(() => {
+              this.getCartsData();
+              this.$emit('cartsNumChange');
+              this.$swal({
+                title: '已刪除',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            })
+            .catch(() => {});
+        }
+      });
     },
     closeOffcanvas() {
       this.shoppingCarts.hide();

@@ -26,11 +26,19 @@ export default {
     ShoppingCarts,
     Validate,
   },
+  inject: ['emitter'],
   methods: {
     getCartsData() {
+      const loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        onCancel: this.onCancel,
+      });
       this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart`)
         .then((res) => {
           this.cartsData = res.data.data;
+          loader.hide();
         })
         .catch(() => {});
     },

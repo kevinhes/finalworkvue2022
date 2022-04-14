@@ -9,12 +9,12 @@
         </div>
         <ul class="list-unstyled">
           <li class="mb-3">
-            <a class="h5 text-dark" href="#" @click.prevent="getProductsData()">
+            <a class="h5 text-dark" href="#" @click.prevent="getAllProductsData(1)">
               全部
             </a>
           </li>
           <li class="mb-3" v-for="category in categories" :key="category">
-            <a class="h5 text-dark" href="#" @click.prevent="getProductsData(1, category)">
+            <a class="h5 text-dark" href="#" @click.prevent="getAllProductsData(1, category)">
               {{category}}
             </a>
           </li>
@@ -49,7 +49,7 @@
             </div>
           </div>
         </div>
-        <Pagination :pagination="pagination" @page-change="getProductsData"></Pagination>
+        <Pagination :pagination="pagination" @page-change="getAllProductsData"></Pagination>
       </div>
     </div>
   </div>
@@ -76,31 +76,28 @@ export default {
   methods: {
     checkCategory() {
       if (this.$route.params.category === 'all') {
-        this.getProductsData();
+        this.getAllProductsData(1);
       } else {
-        this.getProductsData(1, this.$route.params.category);
+        this.getAllProductsData(1, this.$route.params.category);
       }
     },
-    getProductsData(page = 1, categroy = '') {
+    getAllProductsData(page, category = '') {
       const loader = this.$loading.show({
         // Optional parameters
         container: this.fullPage ? null : this.$refs.formContainer,
         canCancel: false,
         onCancel: this.onCancel,
       });
-      this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/products?page=${page}&category=${categroy}`)
-        .then((res) => {
-          this.productsData = res.data.products.filter((i) => i.category !== '贊助');
-          this.pagination = res.data.pagination;
-          loader.hide();
-        })
-        .catch(() => {});
-    },
-    getAllProductsData() {
       this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/products/all`)
         .then((res) => {
           this.allProductsData = res.data.products.filter((i) => i.category !== '贊助');
+          this.productsData = res.data.products.filter((i) => i.category !== '贊助');
+          if (category !== '') {
+            this.productsData = this.productsData.filter((i) => i.category === category);
+          }
+          this.allPagination(this.productsData, page);
           this.getCategories();
+          loader.hide();
         })
         .catch(() => {});
     },
@@ -111,9 +108,34 @@ export default {
       });
       this.categories = [...categories];
     },
+    allPagination(productsData, nowPage = 1) {
+      const dataTotal = productsData.length;
+      const perPage = 10;
+      const pageTotal = Math.ceil(dataTotal / perPage);
+      let currentPage = nowPage;
+      if (currentPage > pageTotal) {
+        currentPage = pageTotal;
+      }
+      const minData = (currentPage * perPage) - perPage + 1;
+      const maxData = (currentPage * perPage);
+      const data = [];
+      productsData.forEach((item, index) => {
+        const num = index + 1;
+        if (num >= minData && num <= maxData) {
+          data.push(item);
+        }
+      });
+      const page = {
+        total_pages: pageTotal,
+        currnet_page: currentPage,
+        has_pre: currentPage > 1,
+        has_next: currentPage < pageTotal,
+      };
+      this.pagination = page;
+      this.productsData = data;
+    },
   },
   mounted() {
-    this.getAllProductsData();
     this.checkCategory();
   },
 };

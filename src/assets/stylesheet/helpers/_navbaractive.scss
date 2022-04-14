@@ -1,9 +1,11 @@
 .navbar-active-show.navbar-active::after {
-  content: '';
-  height: 3px;
-  background: black;
-  position: absolute;
-  bottom: 3px;
-  left: 0;
-  right: 0;
+  @include media-breakpoint-up(md) {
+    content: '';
+    height: 3px;
+    background: black;
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    right: 0;
+  }
 }
