@@ -9,14 +9,14 @@
           <div class="form-floating mb-3">
             <Field type="email" class="form-control" id="username" name="email"
             placeholder="name@example.com" rules="email|required" v-model="user.username"
-            :class="{ 'is-invalid': errors['email'] }"></Field>
+            :class="{ 'is-invalid': errors['email'] }" />
             <label for="username">Email address</label>
             <error-message name="email" class="invalid-feedback"></error-message>
           </div>
           <div class="form-floating">
             <Field type="password" class="form-control" id="password"
             name="password" :class="{ 'is-invalid': errors['password'] }" v-model="user.password"
-            placeholder="Password" rules="required"></Field>
+            placeholder="Password" rules="required" />
             <label for="password">Password</label>
             <error-message name="password" class="invalid-feedback"></error-message>
           </div>

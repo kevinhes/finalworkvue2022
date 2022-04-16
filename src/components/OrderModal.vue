@@ -122,7 +122,7 @@ export default {
           ...this.tempOrderData,
         },
       };
-      this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/admin/order/${id}`, obj)
+      this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/admin/order/${id}`, obj)
         .then(() => {
           this.$emit('change-paid', id);
           this.orderModal.hide();

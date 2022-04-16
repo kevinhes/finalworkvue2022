@@ -42,4 +42,5 @@ router.beforeEach((to) => {
   if (to.meta.title) {
     document.title = to.meta.title;
   }
+  window.scrollTo(0, 0);
 });

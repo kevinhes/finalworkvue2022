@@ -13,7 +13,7 @@
           <span class="fs-6 text-muted">{{product.episodeTime}}</span>
         </p>
         <div class="row">
-          <div class="col-md-5 g-md-2 col position-relative">
+          <div class="col-md-6 g-md-2 col position-relative">
             <div class="position-absolute start-15 top-50
             translate-middle" v-if="isPlayed">
               <i class="bi bi-volume-up text-primary fs-3"></i>
@@ -22,9 +22,9 @@
             class="btn btn-outline-primary w-100 py-2">試聽十分鐘</button>
             <audio id="audio" :src="product.audition"></audio>
           </div>
-          <div class="col-md-5 g-md-2 col">
+          <div class="col-md-6 g-md-2 col">
             <a :href="product.episodeLink" target="blank"
-            class="btn btn-primary w-100 py-2 d-none d-md-block">Apple podcast上收聽</a>
+            class="btn btn-primary w-100 py-2 d-none d-md-block">Apple podcast 上收聽</a>
             <a :href="product.episodeLink" target="blank"
             class="btn btn-primary w-100 py-2 d-md-none">Apple podcast</a>
           </div>
@@ -45,13 +45,14 @@
         </p>
       </div>
     </div>
-    <div class="row">
+    <div class="row mb-7">
       <div class="offset-lg-2 col-lg-8">
         <h5 class="mb-3">{{product.category}}其他單集</h5>
         <swiper
-          :slidesPerView="6"
+          :slidesPerView="4"
           :spaceBetween="30"
           :modules="modules"
+          :pagination="true"
           class="mySwiper"
           :breakpoints="{
             '390': {
@@ -62,15 +63,15 @@
               slidesPerView: 4,
               spaceBetween: 30,
             },
-            '1024': {
-              slidesPerView: 5,
-              spaceBetween: 30,
-            },
           }"
         >
           <swiper-slide v-for="img in productsData" :key="img.id">
             <a href="#" @click.prevent="changeEpisode(img.id)">
               <img :src="img.imageUrl" :alt="img.title">
+              <p class="text-dark text-start fs-7 mb-0">{{episodeTitleCutNum(img.title)}}</p>
+              <p class="text-dark text-start mb-0 multiline-ellipsis">
+                {{episodeTitleCut(img.title)}}
+              </p>
             </a>
           </swiper-slide>
         </swiper>
@@ -88,6 +89,7 @@ import 'swiper/modules/pagination/pagination.scss';
 
 // import required modules
 import Pagination from 'swiper/modules/pagination/pagination';
+// import Navigation from 'swiper/modules/navigation/navigation';
 
 export default {
   data() {
@@ -124,9 +126,16 @@ export default {
         });
     },
     getProductsData(page = 1, category = '') {
+      const loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        onCancel: this.onCancel,
+      });
       this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/products?page=${page}&category=${category}`)
         .then((res) => {
           this.productsData = res.data.products;
+          loader.hide();
         })
         .catch(() => {});
     },
@@ -176,10 +185,22 @@ export default {
         this.isPlayed = false;
       }
     },
+    episodeTitleCutNum(title) {
+      let episodeTitleNum = title.split(' ', 2);
+      episodeTitleNum = episodeTitleNum.join(' ');
+      return episodeTitleNum;
+    },
+    episodeTitleCut(title) {
+      let episodeTitle = title.split(' ');
+      episodeTitle.splice(0, 3);
+      episodeTitle = episodeTitle.join();
+      return episodeTitle;
+    },
   },
   setup() {
     return {
       modules: [Pagination],
+      Pagination: { clickable: true },
     };
   },
   created() {
@@ -195,6 +216,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
 .swiper-slide {
   text-align: center;
   font-size: 18px;
@@ -220,5 +246,21 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+:deep .swiper-pagination {
+  bottom: -5px;
+}
+
+:deep .swiper-pagination-bullet-active {
+  color: #fff;
+  background: #be1e2d;
 }
 </style>

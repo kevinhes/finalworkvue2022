@@ -1,5 +1,5 @@
 <template>
-  <LandingBanner></LandingBanner>
+  <LandingBanner />
   <section class="season py-lg-5 py-4">
     <div class="container">
       <p class="h2 text-center">大家好，我們是建人五四三</p>
@@ -159,7 +159,7 @@
     </div>
   </section>
   <section class="subscription py-5 bg-light">
-    <LandingSwiper @add-to-carts="addToCarts"></LandingSwiper>
+    <LandingSwiper @add-to-carts="addToCarts" />
     <div class="container d-none d-lg-block">
       <h2 class="text-center mb-5">有您的支持<br>
         建人五四三才能提供更佳的內容

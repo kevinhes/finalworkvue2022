@@ -19,9 +19,12 @@
       </div>
     </li>
   </ul>
-  <p class="fs-5 mb-4" v-else>
-    目前沒有贊助方案
-  </p>
+  <div v-else>
+    <p class="fs-5 mb-4 text-center">
+      目前沒有贊助方案
+    </p>
+    <RouterLink to="/sponsorus" class="btn btn-primary w-25 d-block mx-auto mb-5">點我去贊助</RouterLink>
+  </div>
   <div class="d-flex align-items-center justify-content-between">
     <p>
       <span class="me-2">共</span>

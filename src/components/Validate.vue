@@ -42,7 +42,7 @@
         v-model="userInfo.data.message"></textarea>
       </div>
       <div class="text-end">
-        <button type="submit" class="btn btn-danger">送出訂單</button>
+        <button type="submit" class="btn btn-primary">送出訂單</button>
       </div>
     </Form>
 </template>
@@ -65,6 +65,7 @@ export default {
     };
   },
   emits: ['getCartsData'],
+  inject: ['emitter'],
   methods: {
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
@@ -72,10 +73,11 @@ export default {
     },
     onSubmit() {
       this.$http.post(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/order`, this.userInfo)
-        .then((res) => {
-          alert(res.data.message);
+        .then(() => {
           this.$refs.form.resetForm();
           this.$emit('getCartsData');
+          this.emitter.emit('cartsNumChange');
+          this.$router.push('/orderfinish');
         })
         .catch(() => {});
     },

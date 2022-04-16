@@ -6,4 +6,22 @@
     min-height: calc(100vh - 280px - 56px);
   };
   min-height: calc(100vh - 176px - 56px);
+  .order-finish{
+    @include media-breakpoint-up(md) {
+      min-height: calc(100vh - 336px - 56px);
+    };
+    @include media-breakpoint-up(lg) {
+      min-height: calc(100vh - 280px - 56px);
+    };
+    min-height: calc(100vh - 176px - 56px);
+  };
+  .not-found{
+    @include media-breakpoint-up(md) {
+      min-height: calc(100vh - 336px - 56px);
+    };
+    @include media-breakpoint-up(lg) {
+      min-height: calc(100vh - 280px - 56px);
+    };
+    min-height: calc(100vh - 176px - 56px);
+  }
 }

@@ -54,6 +54,14 @@ const routes = [
         },
       },
       {
+        path: 'orderfinish',
+        component: () => import('../views/frontviews/OrderFinish.vue'),
+        meta: {
+          title: '結帳完成',
+          requiresAuth: true,
+        },
+      },
+      {
         path: '/:pathMatch(.*)*',
         component: () => import('../views/frontviews/NotFound.vue'),
       },
@@ -62,6 +70,10 @@ const routes = [
   {
     path: '/loginpage',
     component: () => import('../views/dashboard/LoginView.vue'),
+    meta: {
+      title: '後臺登入',
+      requiresAuth: true,
+    },
   },
   {
     path: '/dashboard',
@@ -70,14 +82,26 @@ const routes = [
       {
         path: '',
         component: () => import('../views/dashboard/AdminProduct.vue'),
+        meta: {
+          title: '產品列表',
+          requiresAuth: true,
+        },
       },
       {
         path: '/order',
         component: () => import('../views/dashboard/OrderView.vue'),
+        meta: {
+          title: '訂單管理',
+          requiresAuth: true,
+        },
       },
       {
         path: '/imageupload',
         component: () => import('../views/dashboard/ImageUpload.vue'),
+        meta: {
+          title: '圖片上傳',
+          requiresAuth: true,
+        },
       },
     ],
   },

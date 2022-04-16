@@ -19,8 +19,8 @@
               台灣是颱風的重災區，為了預防颱風造成的災害，台灣政府長年來花了很多力氣治水<br>
               但是在極端氣候下這幾年所下的雨總是造成台灣大雨成災，防災的計劃趕不上變化造成莫大的損失<br>
               本集我們將介紹城市為什麼淹水，我們用了什麼防止淹水的手段，當這些手段都失效了，我們下一步該怎麼走？</p>
-            <router-link to="/episode/-MyaOlqziq_h0qDdBPNL"
-            class="btn btn-primary mb-5">收聽</router-link>
+            <RouterLink to="/episode/-MyaOlqziq_h0qDdBPNL"
+            class="btn btn-primary mb-5">收聽</RouterLink>
           </div>
         </div>
       </div>
@@ -40,8 +40,8 @@
               建人五四三跟大家說，在修復歷史建築的這份工作可以讓你兩個願望一次滿足<br>
               長年無人居住的磚造建築在重見天日之後究竟需要多少的心力去修復？過程中又有發生什麼趣事，快點下收聽讓我們告訴你
               </p>
-            <router-link class="btn btn-primary mb-5"
-            to="/episode/-Myamo7onTyd9BfZHvUT">收聽</router-link>
+            <RouterLink class="btn btn-primary mb-5"
+            to="/episode/-Myamo7onTyd9BfZHvUT">收聽</RouterLink>
           </div>
         </div>
       </div>
@@ -60,7 +60,8 @@
               香港距離台灣這麼近卻那麼遠，是六百多公里遠也是有線電視國片台的無限輪播的一小時半。從小看著香港電影長大，
               94年從喜劇『國產零零漆』、『九品芝麻官』與賭片『賭神』、『賭聖』裡我們看見了九零年代初好經濟的社會氣氛。
               這輯我們藉由文藝片『重慶森林』浪漫的角度來介紹這個城市27年前的停格</p>
-            <button type="button" class="btn btn-primary mb-5">收聽</button>
+            <RouterLink class="btn btn-primary mb-5"
+            to="/episode/-MyfiiJi_Pp2If18UIg2">收聽</RouterLink>
           </div>
         </div>
       </div>

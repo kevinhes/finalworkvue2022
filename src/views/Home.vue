@@ -1,13 +1,13 @@
 <template>
-  <FrontNavbar></FrontNavbar>
+  <FrontNavbar />
   <RouterView v-if="isRouterAlive"/>
-  <FrontFooter></FrontFooter>
+  <FrontFooter />
 </template>
 
 <script>
 import FrontNavbar from '@/components/FrontNavbar.vue';
 import FrontFooter from '@/components/FrontFooter.vue';
-import emitter from '@/methods/EventBus';
+import emitter from '@/methods/Emitter';
 
 export default {
   data() {

@@ -51,10 +51,10 @@
         </tr>
       </tbody>
     </table>
-    <Pagination :pagination="pagination" @page-change="getProductsData"></Pagination>
+    <Pagination :pagination="pagination" @page-change="getProductsData" />
     <ProductModal :product=product :is-new="isNew"
-    ref="productModal" @get-data="getProductsData"></ProductModal>
-    <DelModal ref="delModal" :product="product" @get-data="getProductsData"></DelModal>
+    ref="productModal" @get-data="getProductsData" />
+    <DelModal ref="delModal" :product="product" @get-data="getProductsData" />
   </div>
 </template>
 

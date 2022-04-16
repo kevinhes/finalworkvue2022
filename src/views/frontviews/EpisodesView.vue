@@ -1,5 +1,5 @@
 <template>
-  <EpisodesBanner></EpisodesBanner>
+  <EpisodesBanner />
   <div class="container py-5">
     <div class="row">
       <!-- 所有季數 -->
@@ -9,12 +9,15 @@
         </div>
         <ul class="list-unstyled">
           <li class="mb-3">
-            <a class="h5 text-dark" href="#" @click.prevent="getAllProductsData(1)">
+            <a class="h5" href="#" @click.prevent="getAllProductsData(1)"
+            :class="{'category-active': isSelected === ''}">
               全部
             </a>
           </li>
           <li class="mb-3" v-for="category in categories" :key="category">
-            <a class="h5 text-dark" href="#" @click.prevent="getAllProductsData(1, category)">
+            <a class="h5"
+            :class="{'category-active': isSelected === category}"
+            href="#" @click.prevent="getAllProductsData(1, category)">
               {{category}}
             </a>
           </li>
@@ -49,7 +52,7 @@
             </div>
           </div>
         </div>
-        <Pagination :pagination="pagination" @page-change="getAllProductsData"></Pagination>
+        <Pagination :pagination="pagination" @page-change="getAllProductsData" />
       </div>
     </div>
   </div>
@@ -67,6 +70,7 @@ export default {
       pagination: {},
       categories: [],
       category: this.$route.params.categroy,
+      isSelected: '',
     };
   },
   components: {
@@ -82,6 +86,7 @@ export default {
       }
     },
     getAllProductsData(page, category = '') {
+      this.isSelected = category;
       const loader = this.$loading.show({
         // Optional parameters
         container: this.fullPage ? null : this.$refs.formContainer,
@@ -152,5 +157,8 @@ export default {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
+  }
+  .category-active {
+    color: #be1e2d;
   }
 </style>

@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row mb-md-5">
       <div class="col-lg-1">
-        <img src="https://i.imgur.com/d3rPSki.png" alt=""
+        <img src="https://i.imgur.com/d3rPSki.png" alt="建人五四三 logo"
         class="img-fluid d-none d-lg-block">
       </div>
       <div class="col-lg-5 d-none d-md-block">

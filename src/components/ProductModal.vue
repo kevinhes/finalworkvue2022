@@ -21,7 +21,7 @@
                   <input type="text" class="form-control" v-model="productData.imageUrl"
                   placeholder="請輸入圖片連結">
                 </div>
-                <img class="img-fluid" :src="productData.imageUrl" alt="">
+                <img class="img-fluid" :src="productData.imageUrl" alt="主要圖片預覽">
               </div>
               <div class="mb-2">
                 <div class="mb-2">
@@ -29,7 +29,7 @@
                   <input type="text" class="form-control" v-model="productData.darkImageUrl"
                   placeholder="請輸入圖片連結">
                 </div>
-                <img class="img-fluid" :src="productData.darkImageUrl" alt="">
+                <img class="img-fluid" :src="productData.darkImageUrl" alt="預覽圖片預覽">
               </div>
               <div class="mb-3">
                 <label for="imageFile" class="form-label">圖片上傳</label>
@@ -50,18 +50,18 @@
                     <input type="text" class="form-control" v-model="productData.imagesUrl[index]"
                     placeholder="請輸入圖片連結">
                   </div>
-                  <img class="img-fluid" :src="img" alt="">
+                  <img class="img-fluid" :src="img" :alt="`系列圖片${index+1}`">
                 </div>
                 <div v-if="!productData.imagesUrl.length ||
                 productData.imagesUrl[productData.imagesUrl.length-1]">
-                  <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"
-                  @click="productData.imagesUrl.push('')">
+                  <button class="btn btn-outline-primary btn-sm d-block w-100"
+                  @click="productData.imagesUrl.push('')" type="button">
                     新增圖片
                   </button>
                 </div>
                 <div v-else>
-                  <button class="btn btn-outline-danger btn-sm d-block w-100" type="button"
-                  @click="productData.imagesUrl.pop()">
+                  <button class="btn btn-outline-danger btn-sm d-block w-100"
+                  @click="productData.imagesUrl.pop()" type="button">
                     刪除圖片
                   </button>
                 </div>
@@ -118,7 +118,12 @@
                 <div class="mb-3 col-md-6">
                   <label for="epdisodeTime" class="form-label">節目上線時間</label>
                   <input id="epdisodeTime" type="date" class="form-control"
-                  placeholder="請輸入單集連結" v-model="productData.episodeTime">
+                  v-model="productData.episodeTime">
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label for="audition" class="form-label">節目試聽連結</label>
+                  <input id="audition" type="text" class="form-control"
+                  placeholder="請輸入試聽連結" v-model="productData.audition">
                 </div>
               </div>
               <hr>
@@ -191,8 +196,7 @@ export default {
             this.productModal.hide();
             this.$emit('get-data');
           })
-          .catch(() => {
-          });
+          .catch(() => {});
       } else if (this.isNew === false) {
         this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/admin/product/${id}`, obj)
           .then((res) => {

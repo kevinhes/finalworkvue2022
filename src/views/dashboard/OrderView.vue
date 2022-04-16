@@ -50,9 +50,9 @@
         </tr>
       </tbody>
     </table>
-    <Pagination :pagination="pagination" @page-change="getOrdersData"></Pagination>
+    <Pagination :pagination="pagination" @page-change="getOrdersData" />
     <OrderModal ref="orderModal" :temp-order="tempOrder" @del-order="delOrder"
-    @change-paid="getOrdersData"></OrderModal>
+    @change-paid="getOrdersData" />
   </div>
 </template>
 
@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     getOrdersData(page = 1) {
-      this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/admin/orders?page=${page}`)
+      this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/admin/orders?page=${page}`)
         .then((res) => {
           this.ordersData = res.data.orders;
           this.pagination = res.data.pagination;
@@ -83,7 +83,7 @@ export default {
         });
     },
     delOrder(id) {
-      this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/admin/order/${id}`)
+      this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/admin/order/${id}`)
         .then((res) => {
           alert(res.data.message);
           this.getOrdersData();

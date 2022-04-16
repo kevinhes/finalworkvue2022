@@ -135,6 +135,7 @@ export default {
       });
     },
     delCartItem(id) {
+      this.isLoading = true;
       this.$swal({
         icon: 'warning',
         title: '確定要刪除嗎？',
@@ -148,6 +149,7 @@ export default {
             .then(() => {
               this.getCartsData();
               this.emitter.emit('cartsNumChange');
+              this.isLoading = false;
               this.$swal({
                 title: '已刪除',
                 icon: 'success',

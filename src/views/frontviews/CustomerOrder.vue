@@ -4,9 +4,9 @@
       <div class="offset-md-2 col-md-8">
         <h3 class="mb-5">您想要贊助我們的項目</h3>
         <ShoppingCarts ref="shoppingCarts" :carts-data="cartsData"
-        @get-carts-data="getCartsData"></ShoppingCarts>
+        @get-carts-data="getCartsData" />
         <hr>
-        <Validate @get-carts-data="getCartsData"></Validate>
+        <Validate @get-carts-data="getCartsData" />
       </div>
     </div>
   </div>
