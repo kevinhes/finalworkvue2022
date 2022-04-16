@@ -101,6 +101,7 @@ export default {
       references: '',
       searchProductId: '',
       isPlayed: false,
+      episodeAudio: '',
     };
   },
   components: {
@@ -119,6 +120,7 @@ export default {
       this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/product/${singleId}`)
         .then((res) => {
           this.product = res.data.product;
+          this.episodeAudio = new Audio(res.data.product.audition);
           this.getProductsData(1, this.product.category);
           this.textCut();
         })
@@ -171,18 +173,17 @@ export default {
       this.getProductData(id);
     },
     audition() {
-      const audio = document.querySelector('#audio');
-      if (audio.paused === true) {
+      if (this.episodeAudio.currentTime === 0 || this.episodeAudio.paused === true) {
         this.isPlayed = true;
-        audio.load();
-        audio.play();
+        this.episodeAudio.load();
+        this.episodeAudio.play();
         setTimeout(() => {
-          audio.pause();
-          audio.currentTime = 0;
+          this.episodeAudio.pause();
+          this.episodeAudio.currentTime = 0;
           this.isPlayed = false;
         }, 600000);
-      } else if (audio.paused === false) {
-        audio.pause();
+      } else if (this.episodeAudio.currentTime !== 0) {
+        this.episodeAudio.pause();
         this.isPlayed = false;
       }
     },
