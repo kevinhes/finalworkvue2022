@@ -172,9 +172,9 @@ export default {
     },
     audition() {
       const audio = document.querySelector('#audio');
+      audio.load();
       if (audio.currentTime === 0 || audio.paused === true) {
         this.isPlayed = true;
-        audio.load();
         audio.play();
         setTimeout(() => {
           audio.pause();
