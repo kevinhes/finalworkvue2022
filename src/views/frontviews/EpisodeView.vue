@@ -172,16 +172,16 @@ export default {
     },
     audition() {
       const audio = document.querySelector('#audio');
-      audio.load();
-      if (audio.currentTime === 0 || audio.paused === true) {
+      if (audio.paused === true) {
         this.isPlayed = true;
+        audio.load();
         audio.play();
         setTimeout(() => {
           audio.pause();
           audio.currentTime = 0;
           this.isPlayed = false;
         }, 600000);
-      } else if (audio.currentTime !== 0) {
+      } else if (audio.paused === false) {
         audio.pause();
         this.isPlayed = false;
       }
