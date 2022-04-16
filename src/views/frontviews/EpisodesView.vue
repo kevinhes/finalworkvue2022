@@ -132,7 +132,7 @@ export default {
       });
       const page = {
         total_pages: pageTotal,
-        currnet_page: currentPage,
+        current_page: currentPage,
         has_pre: currentPage > 1,
         has_next: currentPage < pageTotal,
       };
