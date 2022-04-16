@@ -427,11 +427,11 @@ export default {
   align-items: center;
 }
 
-:deep .swiper-pagination {
+:deep(.swiper-pagination) {
   bottom: -5px;
 }
 
-:deep .swiper-pagination-bullet-active {
+:deep(.swiper-pagination-bullet-active) {
   color: #fff;
   background: #be1e2d;
 }

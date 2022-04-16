@@ -105,7 +105,7 @@ export default {
   height: 390px;
 }
 
-:deep .swiper-pagination-bullet-active {
+:deep(.swiper-pagination-bullet-active) {
   color: #fff;
   background: #be1e2d;
 }
