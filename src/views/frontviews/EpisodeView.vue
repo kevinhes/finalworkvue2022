@@ -121,6 +121,7 @@ export default {
         .then((res) => {
           this.product = res.data.product;
           this.episodeAudio = new Audio(res.data.product.audition);
+          this.episodeAudio.load();
           this.getProductsData(1, this.product.category);
           this.textCut();
         })
@@ -175,7 +176,6 @@ export default {
     audition() {
       if (this.episodeAudio.currentTime === 0 || this.episodeAudio.paused === true) {
         this.isPlayed = true;
-        this.episodeAudio.load();
         this.episodeAudio.play();
         setTimeout(() => {
           this.episodeAudio.pause();
