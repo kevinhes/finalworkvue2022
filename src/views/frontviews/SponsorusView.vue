@@ -2,7 +2,7 @@
   <div class="container pb-5 mt-6">
     <div class="row">
       <div class="col-lg-12">
-        <img src="https://storage.googleapis.com/vue-course-api.appspot.com/kevinhesapi/1649244256173.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=dzmjeY6xWc%2BmWtMU2N%2FuaBbkbPI9IEaXzAYEx9xA88yx0SS0VlTHM8%2BEjdxc9yIDIjmUqysxHgpUp7RvRIoepOXNfEyr2n%2FwCJXfqbbnEUwKKxAXHPjZMvyCWSDOtv8EQsqixSwWp3ZOix1Ur%2Fw%2BCRctfF0Z12KjA7GjsCDIJ7ux2CvUn9dZoW5WHikzih0gkUYAXIVKEfBe2UJ1p%2B4ZdUS%2BOQfCYv2IiQSoGgw9JsYDXlgwhXra1X1MlmM8AMonMdZveVUmlgCCZ%2FfsAS%2BsmRIJT9bjdOgfw4RT%2FglTqAiYdBrjkKK0w2lNAkAFo%2BRByEuI2rIZpRKYDvTNDLGpug%3D%3D" alt="建人五四三贊助頁面" class="img-fluid">
+        <img src="../../assets/images/sponsorbanner.png" alt="建人五四三贊助頁面" class="img-fluid">
       </div>
     </div>
     <div class="row">
@@ -45,9 +45,17 @@
                 {{cartItem.product.title}}
               </p>
               <div class="d-flex justify-content-end align-items-center">
-                <input type="number" v-model="cartItem.qty"
-                @change="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty)"
-                class="w-25 border-0 me-2" :readonly="isLoading">
+                <a href="#" :class="{'link-disalbed': isLoading === true}"
+                @click.prevent="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty-=1)">
+                  <i class="bi bi-dash"></i>
+                </a>
+                <!-- <p class="mb-0 mx-1 p-2">{{cartItem.qty}}</p> -->
+                <input type="text" readonly class="w-25 border-0 px-auto text-center"
+                v-model="cartItem.qty">
+                <a href="#" class="me-3" :class="{'link-disalbed': isLoading === true}"
+                @click.prevent="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty+=1)">
+                  <i class="bi bi-plus"></i>
+                </a>
                 <button type="button" class="btn btn-outline-primary btn-sm"
                 @click="delCartItem(cartItem.id)">
                   <i class="bi bi-x"></i>
@@ -69,7 +77,7 @@
           <p>
             <span class="align-middle me-3">總計</span>
             <span class="h2 align-middle">
-              {{cartsData.final_total}}
+              {{numberWithCommas(cartsData.final_total)}}
             </span>
             <span class="align-middle ms-3">元</span>
           </p>
@@ -104,7 +112,14 @@ export default {
           this.sponsorData = res.data.products.filter((i) => i.category === '贊助');
           loader.hide();
         })
-        .catch(() => {});
+        .catch((error) => {
+          this.$swal({
+            icon: 'warning',
+            title: 'Oops...',
+            text: error.response.data.message,
+          });
+          loader.hide();
+        });
     },
     addToCart(id, qty = 1) {
       this.isLoading = true;
@@ -121,7 +136,13 @@ export default {
           this.isLoading = false;
           this.emitter.emit('cartsNumChange');
         })
-        .catch(() => {});
+        .catch(() => {
+          this.$swal({
+            icon: 'warning',
+            title: 'Oops...',
+            text: '加入購物車失敗',
+          });
+        });
     },
     addCartAlert() {
       this.$swal({
@@ -157,7 +178,16 @@ export default {
                 timer: 2000,
               });
             })
-            .catch(() => {});
+            .catch(() => {
+              this.$swal({
+                icon: 'warning',
+                title: 'Oops...',
+                text: '購物車刪除失敗，請重新嘗試或與我們聯絡',
+              });
+            });
+        } else {
+          this.getCartsData();
+          this.isLoading = false;
         }
       });
     },
@@ -166,7 +196,13 @@ export default {
         .then((res) => {
           this.cartsData = res.data.data;
         })
-        .catch(() => {});
+        .catch((error) => {
+          this.$swal({
+            icon: 'warning',
+            title: 'Oops...',
+            text: error.response.data.message,
+          });
+        });
     },
     updateCartNum(id, productId, qty) {
       this.isLoading = true;
@@ -191,11 +227,36 @@ export default {
               timerProgressBar: true,
             });
             this.getCartsData();
-            this.isLoading = false;
+            setTimeout(() => {
+              this.isLoading = false;
+            }, 2000);
           })
-          .catch(() => {});
+          .catch(() => {
+            this.$swal({
+              icon: 'warning',
+              title: 'Oops...',
+              text: '購物車數量調整有誤，請您重新再試或與我們聯絡',
+            });
+          });
       }
     },
+    numberWithCommas(num) {
+      if (!num) return 0;
+      const intPart = Math.trunc(num);
+      const intPartFormat = intPart.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+      let floatPart = '';
+      const valueArray = num.toString().split('.');
+      if (valueArray.length === 2) {
+        floatPart = valueArray[1].toString();
+        return `${intPartFormat}.${floatPart}`;
+      }
+      return intPartFormat + floatPart;
+    },
+  },
+  created() {
+    this.emitter.on('cartsNumRenew', () => {
+      this.getCartsData();
+    });
   },
   mounted() {
     this.getProductsData();

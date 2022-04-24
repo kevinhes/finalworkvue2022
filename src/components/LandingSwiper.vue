@@ -3,7 +3,7 @@
   <h2 class="text-center mb-5">有您的支持<br>
     建人五四三才能提供更佳的內容
   </h2>
-       <swiper
+  <swiper
     :slidesPerView="6"
     :spaceBetween="30"
     :modules="modules"
@@ -21,8 +21,7 @@
         slidesPerView: 3,
         spaceBetween: 24,
       },
-    }"
-  >
+    }">
     <swiper-slide>
       <div class="card rounded-4 shadow-sm sponsor-card">
         <div class="card-body d-flex flex-column justify-content-between">
@@ -56,7 +55,10 @@
           </div>
           <div class="footer">
             <a href="#" class="btn btn-primary mx-auto d-block w-50
-            mb-5 btn-lg" @click.prevent="addToCarts('-MyBvXgqnJbrrHKUiPGZ')">按我訂閱</a>
+            mb-5 btn-lg" @click.prevent="addToCarts('-MyBvXgqnJbrrHKUiPGZ')"
+            :class="{'disabled': isLoading === true}">
+              按我訂閱
+            </a>
           </div>
         </div>
       </div>
@@ -110,7 +112,10 @@
           </div>
           <div>
             <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg"
-            @click.prevent="addToCarts('-MyCJMkfZIuIxqL8xrPV')">按我訂閱</a>
+            @click.prevent="addToCarts('-MyCJMkfZIuIxqL8xrPV')"
+            :class="{'disabled': isLoading === true}">
+              按我訂閱
+            </a>
           </div>
         </div>
       </div>
@@ -180,7 +185,10 @@
           </div>
           <div>
             <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg"
-            @click.prevent="addToCarts('-MyCJXtEApZcq1S6ga8f')">按我訂閱</a>
+            @click.prevent="addToCarts('-MyCJXtEApZcq1S6ga8f')"
+            :class="{'disabled': isLoading === true}">
+              按我訂閱
+            </a>
           </div>
         </div>
       </div>
@@ -200,6 +208,7 @@ import 'swiper/modules/pagination/pagination.scss';
 import Pagination from 'swiper/modules/pagination/pagination';
 
 export default {
+  props: ['isLoading'],
   methods: {
     addToCarts(id) {
       this.$emit('addToCarts', id);

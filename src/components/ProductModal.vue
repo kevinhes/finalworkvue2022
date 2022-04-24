@@ -196,7 +196,9 @@ export default {
             this.productModal.hide();
             this.$emit('get-data');
           })
-          .catch(() => {});
+          .catch((error) => {
+            alert(error.response.data.message);
+          });
       } else if (this.isNew === false) {
         this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/admin/product/${id}`, obj)
           .then((res) => {
@@ -204,7 +206,9 @@ export default {
             this.productModal.hide();
             this.$emit('get-data');
           })
-          .catch(() => {});
+          .catch((error) => {
+            alert(error.response.data.message);
+          });
       }
     },
     openModal() {
@@ -223,7 +227,9 @@ export default {
           this.imgUploadUrl = res.data.imageUrl;
           this.$refs.imageFile.value = '';
         })
-        .catch(() => {});
+        .catch((error) => {
+          alert(error.response.data.message);
+        });
     },
   },
   mounted() {

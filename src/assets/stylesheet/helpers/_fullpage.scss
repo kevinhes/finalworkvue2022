@@ -3,7 +3,13 @@
     min-height: calc(100vh - 336px - 56px);
   };
   @include media-breakpoint-up(lg) {
-    min-height: calc(100vh - 280px - 56px);
+    min-height: calc(100vh - 304px - 62px);
+  };
+  @include media-breakpoint-up(xl) {
+    min-height: calc(100vh - 280px - 62px);
+  };
+  @include media-breakpoint-up(xxl) {
+    min-height: calc(100vh - 256px - 62px);
   };
   min-height: calc(100vh - 176px - 56px);
   .order-finish{
@@ -11,7 +17,13 @@
       min-height: calc(100vh - 336px - 56px);
     };
     @include media-breakpoint-up(lg) {
-      min-height: calc(100vh - 280px - 56px);
+      min-height: calc(100vh - 304px - 62px);
+    };
+    @include media-breakpoint-up(xl) {
+      min-height: calc(100vh - 280px - 62px);
+    };
+    @include media-breakpoint-up(xxl) {
+      min-height: calc(100vh - 256px - 62px);
     };
     min-height: calc(100vh - 176px - 56px);
   };
@@ -20,7 +32,13 @@
       min-height: calc(100vh - 336px - 56px);
     };
     @include media-breakpoint-up(lg) {
-      min-height: calc(100vh - 280px - 56px);
+      min-height: calc(100vh - 304px - 62px);
+    };
+    @include media-breakpoint-up(xl) {
+      min-height: calc(100vh - 280px - 62px);
+    };
+    @include media-breakpoint-up(xxl) {
+      min-height: calc(100vh - 256px - 62px);
     };
     min-height: calc(100vh - 176px - 56px);
   }

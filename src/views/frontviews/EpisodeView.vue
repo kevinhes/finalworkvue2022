@@ -18,8 +18,8 @@
             translate-middle" v-if="isPlayed">
               <i class="bi bi-volume-up text-primary fs-3"></i>
             </div>
-            <button @click="audition" type="button"
-            class="btn btn-outline-primary w-100 py-2">試聽十分鐘</button>
+            <button @click="openPlayer" type="button"
+            class="btn btn-outline-primary w-100 py-2">試聽</button>
             <audio id="audio" :src="product.audition"></audio>
           </div>
           <div class="col-md-6 g-md-2 col">
@@ -78,10 +78,12 @@
       </div>
     </div>
   </div>
+  <MediaPlayer ref="mediaPlayer" :product="product"></MediaPlayer>
 </template>
 
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue';
+import MediaPlayer from '@/components/MediaPlayer.vue';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
@@ -107,6 +109,7 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
+    MediaPlayer,
   },
   inject: ['emitter'],
   methods: {
@@ -125,7 +128,12 @@ export default {
           this.getProductsData(1, this.product.category);
           this.textCut();
         })
-        .catch(() => {
+        .catch((error) => {
+          this.$swal({
+            icon: 'warning',
+            title: 'Oops...',
+            text: error.response.data.message,
+          });
         });
     },
     getProductsData(page = 1, category = '') {
@@ -140,7 +148,14 @@ export default {
           this.productsData = res.data.products;
           loader.hide();
         })
-        .catch(() => {});
+        .catch((error) => {
+          this.$swal({
+            icon: 'warning',
+            title: 'Oops...',
+            text: error.response.data.message,
+          });
+          loader.hide();
+        });
     },
     textCut() {
       const newContent = this.product.content.split('\n');
@@ -173,19 +188,8 @@ export default {
       this.$router.push(`/episode/${id}`);
       this.getProductData(id);
     },
-    audition() {
-      if (this.episodeAudio.currentTime === 0 || this.episodeAudio.paused === true) {
-        this.isPlayed = true;
-        this.episodeAudio.play();
-        setTimeout(() => {
-          this.episodeAudio.pause();
-          this.episodeAudio.currentTime = 0;
-          this.isPlayed = false;
-        }, 600000);
-      } else if (this.episodeAudio.currentTime !== 0) {
-        this.episodeAudio.pause();
-        this.isPlayed = false;
-      }
+    openPlayer() {
+      this.$refs.mediaPlayer.openModal();
     },
     episodeTitleCutNum(title) {
       let episodeTitleNum = title.split(' ', 2);

@@ -11,14 +11,14 @@
             placeholder="name@example.com" rules="email|required" v-model="user.username"
             :class="{ 'is-invalid': errors['email'] }" />
             <label for="username">Email address</label>
-            <error-message name="email" class="invalid-feedback"></error-message>
+            <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
           </div>
           <div class="form-floating">
             <Field type="password" class="form-control" id="password"
             name="password" :class="{ 'is-invalid': errors['password'] }" v-model="user.password"
             placeholder="Password" rules="required" />
             <label for="password">Password</label>
-            <error-message name="password" class="invalid-feedback"></error-message>
+            <ErrorMessage name="password" class="invalid-feedback"></ErrorMessage>
           </div>
           <button class="btn btn-lg btn-primary w-100 mt-3" type="submit">
             登入
@@ -57,7 +57,14 @@ export default {
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}; path=/`;
           this.$router.push('/dashboard');
         })
-        .catch(() => {});
+        .catch((error) => {
+          this.$swal({
+            icon: 'warning',
+            title: error.response.data.message,
+            text: error.response.data.error.message,
+          });
+          this.user.password = '';
+        });
     },
   },
 };

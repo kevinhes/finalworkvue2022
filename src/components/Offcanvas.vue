@@ -21,24 +21,28 @@
                 </button>
               </div>
               <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <button class="border-0 bg-white" type="button"
-                  @click="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty-=1)">
+                <div class="d-flex">
+                  <a class="border-0 bg-white number-btn"
+                  :class="{'link-disalbed': isLoading === true}"
+                  @click.prevent="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty-=1)">
                     <i class="bi bi-dash-lg fw-bold"></i>
-                  </button>
-                  <input type="number" v-model="cartItem.qty" class="border-0 w-10 text-center"
-                  @change="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty)">
-                  <button class="border-0 bg-white" type="button"
-                  @click="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty+=1)">
+                  </a>
+                  <input type="text" readonly class="w-25 border-0 px-auto text-center"
+                v-model="cartItem.qty">
+                  <a class="border-0 bg-white number-btn"
+                  :class="{'link-disalbed': isLoading === true}"
+                  @click.prevent="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty+=1)">
                     <i class="bi bi-plus-lg fw-bold"></i>
-                  </button>
+                  </a>
                 </div>
                 <div class="d-flex align-items-center">
                   <p class="mb-0">
                     <span class="me-2">TWD</span>
                   </p>
                   <p class="mb-0">
-                    <span class="fs-5">{{cartItem.final_total}}</span>
+                    <span class="fs-5">
+                      {{numberWithCommas(cartItem.final_total)}}
+                    </span>
                   </p>
                   <p class="mb-0">
                     <span class="ms-2">元</span>
@@ -65,7 +69,7 @@
         <p>
           <span class="align-middle me-3">總計</span>
           <span class="h2 align-middle">
-            {{cartsData.final_total}}
+            {{numberWithCommas(cartsData.final_total)}}
           </span>
           <span class="align-middle ms-3">元</span>
         </p>
@@ -85,6 +89,7 @@ export default {
     return {
       shoppingCarts: '',
       cartsData: {},
+      isLoading: false,
     };
   },
   methods: {
@@ -97,11 +102,18 @@ export default {
         .then((res) => {
           this.cartsData = res.data.data;
         })
-        .catch(() => {});
+        .catch((error) => {
+          this.$swal({
+            icon: 'warning',
+            title: 'Oops...',
+            text: error.response.data.message,
+          });
+        });
     },
     updateCartNum(id, productId, qty) {
+      this.isLoading = true;
       if (qty === 0) {
-        this.delCartItem();
+        this.delCartItem(id);
       } else {
         const obj = {
           data: {
@@ -110,20 +122,45 @@ export default {
           },
         };
         this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
-          .then(() => {
-            this.getCartsData();
-            this.$emit('cartsNumChange');
-            this.$swal({
-              icon: 'success',
-              title: '已調整購物車',
-              showConfirmButton: false,
-              timer: 1500,
-            });
+          .then((res) => {
+            if (res.data.success === true) {
+              this.getCartsData();
+              setTimeout(() => {
+                this.isLoading = false;
+              }, 2000);
+              this.$emit('cartsNumChange');
+              this.$swal({
+                icon: 'success',
+                title: '已調整購物車',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              this.emitter.emit('cartsNumRenew');
+            } else {
+              setTimeout(() => {
+                this.isLoading = false;
+              }, 2000);
+              this.$swal({
+                icon: 'warning',
+                title: 'Oops...',
+                text: '購物車數量調整有誤，請您重新再試或與我們聯絡',
+              });
+            }
           })
-          .catch(() => {});
+          .catch((error) => {
+            this.isLoading = false;
+            if (error.response !== undefined) {
+              this.$swal({
+                icon: 'warning',
+                title: 'Oops...',
+                text: '購物車數量調整有誤，請您重新再試或與我們聯絡',
+              });
+            }
+          });
       }
     },
     delCartItem(id) {
+      this.isLoading = true;
       this.$swal({
         icon: 'warning',
         title: '確定要刪除嗎？',
@@ -134,22 +171,56 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
-            .then(() => {
-              this.getCartsData();
-              this.$emit('cartsNumChange');
-              this.$swal({
-                title: '已刪除',
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 2000,
-              });
+            .then((res) => {
+              this.isLoading = false;
+              if (res.data.success === true) {
+                this.getCartsData();
+                this.$emit('cartsNumChange');
+                this.$swal({
+                  title: '已刪除',
+                  icon: 'success',
+                  showConfirmButton: false,
+                  timer: 2000,
+                });
+                this.emitter.emit('cartsNumRenew');
+              } else {
+                this.$swal({
+                  icon: 'warning',
+                  title: 'Oops...',
+                  text: '購物車品項刪除失敗，請重新再試或與我們聯絡',
+                });
+              }
             })
-            .catch(() => {});
+            .catch((error) => {
+              this.isLoading = false;
+              if (error.response !== undefined) {
+                this.$swal({
+                  icon: 'warning',
+                  title: 'Oops...',
+                  text: '購物車品項刪除失敗，請重新再試或與我們聯絡',
+                });
+              }
+            });
+        } else {
+          this.getCartsData();
+          this.isLoading = false;
         }
       });
     },
     closeOffcanvas() {
       this.shoppingCarts.hide();
+    },
+    numberWithCommas(num) {
+      if (!num) return 0;
+      const intPart = Math.trunc(num);
+      const intPartFormat = intPart.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+      let floatPart = '';
+      const valueArray = num.toString().split('.');
+      if (valueArray.length === 2) {
+        floatPart = valueArray[1].toString();
+        return `${intPartFormat}.${floatPart}`;
+      }
+      return intPartFormat + floatPart;
     },
   },
   mounted() {
@@ -164,5 +235,10 @@ input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
+.link-disalbed {
+  pointer-events: none;
+}
+.number-btn {
+  cursor: pointer;
+}
 </style>

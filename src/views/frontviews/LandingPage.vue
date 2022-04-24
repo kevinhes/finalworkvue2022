@@ -10,8 +10,7 @@
       </p>
       <div class="row mb-4 position-relative">
         <div class="col-md-7 mb-3 mb-md-0">
-          <div style="background-image: url(https://storage.googleapis.com/vue-course-api.appspot.com/kevinhesapi/1649232887095.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=ihuTQ2lrXokLMeIW%2BJyo7uoFkp%2FTnm61cOu36BdoT5Go7BDGIV4PlCGKMxxOCqqTRQXLqlP%2BRFjOkeNu22XBW5JkBWevrhv3zxzt7wkHmK47A2PgHvz9yzc1X2Bd72kJuubqVHtx3AqW3oHo8pDeqCul67xcRXAK9dcNMGcGaedxkRUthg1fzAjcHaMeALVY%2Fbs5f%2FatZ6z1U%2FY%2F0zUFdqr5II3iyLj3Fqer4N2sZI6xisfDoMCGR4e1fdz4jzf1qIUg0grKt3gV4Iua9hgeQszEWiASUOxk5Y1p5ECvUWyEPBXZyLh8NdJSCTPWuE8KPRcTvk3ZNFYKspQmnxz24A%3D%3D);"
-          class="season-banner"></div>
+          <div class="season-banner green-building"></div>
         </div>
         <div class="col-md-5 d-flex flex-column justify-content-center">
           <h3>綠建築</h3>
@@ -40,14 +39,12 @@
           class="btn btn-primary w-lg-25 w-100">前往專輯</RouterLink>
         </div>
         <div class="col-md-7 order-1 order-lg-2 mb-3 mb-md-0">
-          <div style="background-image: url(https://storage.googleapis.com/vue-course-api.appspot.com/kevinhesapi/1649233062971.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=CdsgAT9MhoqdYN5Kt0CRSOWN%2B0Vg3v6j3LjICNXM7yLxL46qXtPvBJdKS%2FOp1HYoOucaN7YxPLGzc%2BrBxM9s3DHaEmmNmgGhi4DmB99ov5B6WjsvbQescz5MJ2S4sSuISUC0lCsJl1txF72c9zEutr9upsKLSfHQyo1kWaK5q6U8FOOTvZus8CZERZHp%2FLY4%2FK1Q60lsjQYqAFexikv0US7i1y%2FIzqBnSgfw6irAYwRw5DwvzmeP3jrcE%2BZOAY6z%2B7iymFGRrXIvRIEvj9%2BoP10JV4QOFutfrdZbTkHEWkeN2ykrCoaHrANcN8ecs%2F03XepvWsQyIyWmqbisLT1%2FPA%3D%3D);"
-          class="season-banner"></div>
+          <div class="season-banner old-building"></div>
         </div>
       </div>
       <div class="row mb-3">
         <div class="col-md-7 mb-3 mb-md-0">
-          <div style="background-image: url(https://storage.googleapis.com/vue-course-api.appspot.com/kevinhesapi/1649233267995.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=js2Xo59J0kHB74RQEZMl4OkWcBngrW8BX4Saq8eV7hRc3xOdqLKbuP2AhwS0Ly9G9TQfQtUeluATBRXBwqLdVo3JMDny3zUrkEAxHjMptpfQuL2eDJO%2B0MKpnUb1VL%2BWo76CdAcMpWYT8lDekMP4A9JkR%2FFBCYrSLmZfUlhJ6dKWJrFcOzA2E4%2BJblAW10oVZxPlG51fBVjjqjLXXlSAIzuvFPgRohH3A4oiziA%2Ba7UxSPq48sizzPfgeP%2Bu6t4kIROoW%2FJoVDY8Rk26zww6awdDovhzWOIgqpsuNqbgNRwYxV9GP9FzwRxvLDrX5RYrkikEykRoMYzIw2zr7hxO6w%3D%3D);"
-          class="season-banner"></div>
+          <div class="season-banner movie-building"></div>
         </div>
         <div class="col-md-5 d-flex flex-column justify-content-center">
           <h3>電影建築</h3>
@@ -159,7 +156,7 @@
     </div>
   </section>
   <section class="subscription py-5 bg-light">
-    <LandingSwiper @add-to-carts="addToCarts" />
+    <LandingSwiper @add-to-carts="addToCarts" :is-loading="isLoading" />
     <div class="container d-none d-lg-block">
       <h2 class="text-center mb-5">有您的支持<br>
         建人五四三才能提供更佳的內容
@@ -200,7 +197,9 @@
               </div>
               <div class="footer">
                 <a href="#" class="btn btn-primary mx-auto d-block w-50
-                mb-5 btn-lg" @click.prevent="addToCarts('-MyBvXgqnJbrrHKUiPGZ')">按我訂閱</a>
+                mb-5 btn-lg position-relative" @click.prevent="addToCarts('-MyBvXgqnJbrrHKUiPGZ')"
+                :class="{'disabled': isLoading}">
+                按我訂閱</a>
               </div>
             </div>
           </div>
@@ -255,7 +254,8 @@
               </div>
               <div>
                 <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg"
-                @click.prevent="addToCarts('-MyCJMkfZIuIxqL8xrPV')">按我訂閱</a>
+                @click.prevent="addToCarts('-MyCJMkfZIuIxqL8xrPV')"
+                :class="{'disabled': isLoading}">按我訂閱</a>
               </div>
             </div>
           </div>
@@ -325,7 +325,10 @@
               </div>
               <div>
                 <a href="#" class="btn btn-primary mx-auto d-block w-50 mb-5 btn-lg"
-                @click.prevent="addToCarts('-MyCJXtEApZcq1S6ga8f')">按我訂閱</a>
+                @click.prevent="addToCarts('-MyCJXtEApZcq1S6ga8f')"
+                :class="{'disabled': isLoading}">
+                  按我訂閱
+                </a>
               </div>
             </div>
           </div>
@@ -352,6 +355,7 @@ export default {
   data() {
     return {
       fullPage: true,
+      isLoading: false,
     };
   },
   inject: ['emitter'],
@@ -372,6 +376,7 @@ export default {
       });
     },
     addToCarts(id) {
+      this.isLoading = true;
       const obj = {
         data: {
           product_id: id,
@@ -382,8 +387,15 @@ export default {
         .then(() => {
           this.showAlert();
           this.emitter.emit('cartsNumChange');
+          this.isLoading = false;
         })
-        .catch(() => {});
+        .catch(() => {
+          this.$swal({
+            icon: 'warning',
+            title: 'Oops...',
+            text: '加入購物車失敗',
+          });
+        });
     },
   },
   components: {
@@ -402,6 +414,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.green-building {
+  background-image: url(../../assets/images/greenbuilding.jpeg);
+}
+
+.old-building {
+  background-image: url(../../assets/images/oldbuildingsmall.jpg);
+}
+
+.movie-building {
+  background-image: url(../../assets/images/moviebuildingsmall.jpg);
+}
+
 .swiper {
   width: 100%;
   height: 100%;

@@ -29,3 +29,9 @@
     </div>
   </article>
 </template>
+
+<style lang="scss" scoped>
+  .about-banner {
+    background-image: url(../../assets/images/aboutbanner.jpg);
+  }
+</style>

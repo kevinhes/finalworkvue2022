@@ -6,7 +6,7 @@
         :class="{ 'is-invalid': errors['email'] }" placeholder="請輸入 Email"
         rules="email|required" v-model="userInfo.data.user.email"
         ></Field>
-        <error-message name="email" class="invalid-feedback"></error-message>
+        <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
       </div>
 
       <div class="mb-3">
@@ -15,7 +15,7 @@
         class="form-control" :class="{ 'is-invalid': errors['姓名'] }"
         placeholder="請輸入姓名" rules="required"
         v-model="userInfo.data.user.name"></Field>
-        <error-message name="姓名" class="invalid-feedback"></error-message>
+        <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
       </div>
 
       <div class="mb-3">
@@ -24,7 +24,7 @@
         class="form-control" :class="{ 'is-invalid': errors['電話'] }"
         placeholder="請輸入電話" :rules="isPhone"
         v-model="userInfo.data.user.tel"></Field>
-        <error-message name="電話" class="invalid-feedback"></error-message>
+        <ErrorMessage name="電話" class="invalid-feedback"></ErrorMessage>
       </div>
 
       <div class="mb-3">
@@ -33,7 +33,7 @@
         class="form-control" :class="{ 'is-invalid': errors['地址'] }"
         placeholder="請輸入地址" rules="required"
         v-model="userInfo.data.user.address"></Field>
-        <error-message name="地址" class="invalid-feedback"></error-message>
+        <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
       </div>
 
       <div class="mb-3">
@@ -79,7 +79,13 @@ export default {
           this.emitter.emit('cartsNumChange');
           this.$router.push('/orderfinish');
         })
-        .catch(() => {});
+        .catch(() => {
+          this.$swal({
+            icon: 'warning',
+            title: 'Oops...',
+            text: '訂單未送出，請重新嘗試或與我們聯絡',
+          });
+        });
     },
   },
 };

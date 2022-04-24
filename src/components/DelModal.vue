@@ -51,7 +51,9 @@ export default {
           this.delModal.hide();
           this.$emit('get-data');
         })
-        .catch(() => {});
+        .catch((error) => {
+          alert(error.response.data.message);
+        });
     },
   },
   mounted() {

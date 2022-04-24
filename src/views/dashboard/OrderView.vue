@@ -79,7 +79,8 @@ export default {
           this.ordersData = res.data.orders;
           this.pagination = res.data.pagination;
         })
-        .catch(() => {
+        .catch((error) => {
+          alert(error.response.data.message);
         });
     },
     delOrder(id) {
@@ -88,7 +89,9 @@ export default {
           alert(res.data.message);
           this.getOrdersData();
         })
-        .catch(() => {});
+        .catch((error) => {
+          alert(error.response.data.message);
+        });
     },
     timeStapChange(time) {
       const orderTimeStamp = new Date(time);

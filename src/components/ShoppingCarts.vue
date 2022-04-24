@@ -6,12 +6,20 @@
         {{cartItem.product.title}}
       </p>
       <div class="d-flex justify-content-end align-items-center">
-        <input type="number" v-model="cartItem.qty"
-        @change="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty)"
-        :disabled="cartIsLoaging === true"
-        class="w-25 border-0 me-2">
+        <a class="border-0 bg-white number-btn"
+        :class="{'link-disalbed': cartIsLoading === true}"
+        @click.prevent="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty-=1)">
+          <i class="bi bi-dash-lg fw-bold"></i>
+        </a>
+        <input type="text" readonly v-model="cartItem.qty"
+        class="w-25 border-0 mx-3 text-center">
+        <a class="border-0 bg-white number-btn me-5"
+        :class="{'link-disalbed': cartIsLoading === true}"
+        @click.prevent="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty+=1)">
+          <i class="bi bi-plus-lg fw-bold"></i>
+        </a>
         <button class="btn btn-outline-primary btn-sm"
-        :class="{'disabled': cartIsLoaging === true}"
+        :class="{'disabled': cartIsLoading === true}"
         @click="delCartItem(cartItem.id)"
         type="button">
           <i class="bi bi-x"></i>
@@ -36,7 +44,7 @@
     <p>
       <span class="align-middle me-3">總計</span>
       <span class="h2 align-middle">
-        {{cartsData.final_total}}
+        {{numberWithCommas(cartsData.final_total)}}
       </span>
       <span class="align-middle ms-3">元</span>
     </p>
@@ -47,7 +55,7 @@
 export default {
   data() {
     return {
-      cartIsLoaging: false,
+      cartIsLoading: false,
     };
   },
   props: ['cartsData'],
@@ -55,7 +63,7 @@ export default {
   inject: ['emitter'],
   methods: {
     updateCartNum(id, productId, qty) {
-      this.cartIsLoaging = true;
+      this.cartIsLoading = true;
       if (qty === 0) {
         this.delCartItem(id);
       } else {
@@ -66,21 +74,37 @@ export default {
           },
         };
         this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
-          .then(() => {
-            this.$swal({
-              icon: 'success',
-              title: '已調整購物車',
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            this.cartIsLoaging = false;
-            this.$emit('getCartsData');
-            this.emitter.emit('cartsNumChange');
+          .then((res) => {
+            this.cartIsLoading = false;
+            if (res.data.success === true) {
+              this.$swal({
+                icon: 'success',
+                title: '已調整購物車',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              this.$emit('getCartsData');
+              this.emitter.emit('cartsNumChange');
+            } else {
+              this.$swal({
+                icon: 'warning',
+                title: 'Oops...',
+                text: '購物車數量調整有誤，請重新再試或與我們聯絡',
+              });
+            }
           })
-          .catch(() => {});
+          .catch(() => {
+            this.cartIsLoading = false;
+            this.$swal({
+              icon: 'warning',
+              title: 'Oops...',
+              text: '購物車數量調整有誤，請重新再試或與我們聯絡',
+            });
+          });
       }
     },
     delCartItem(id) {
+      this.cartIsLoading = true;
       this.$swal({
         icon: 'warning',
         title: '確定要刪除嗎？',
@@ -91,20 +115,52 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           this.$http.delete(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`)
-            .then(() => {
-              this.$emit('getCartsData');
-              this.emitter.emit('cartsNumChange');
-              this.showConfirmButton = false;
-              this.$swal({
-                title: '已刪除',
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 1500,
-              });
+            .then((res) => {
+              if (res.data.success === true) {
+                this.$emit('getCartsData');
+                this.emitter.emit('cartsNumChange');
+                this.cartIsLoading = false;
+                this.showConfirmButton = false;
+                this.$swal({
+                  title: '已刪除',
+                  icon: 'success',
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              } else {
+                this.cartIsLoading = false;
+                this.$swal({
+                  icon: 'warning',
+                  title: 'Oops...',
+                  text: '購物車刪除失敗，請重新再試或與我們聯絡',
+                });
+              }
             })
-            .catch(() => {});
+            .catch(() => {
+              this.cartIsLoading = false;
+              this.$swal({
+                icon: 'warning',
+                title: 'Oops...',
+                text: '購物車刪除失敗，請重新再試或與我們聯絡',
+              });
+            });
+        } else {
+          this.$emit('getCartsData');
+          this.cartIsLoading = false;
         }
       });
+    },
+    numberWithCommas(num) {
+      if (!num) return 0;
+      const intPart = Math.trunc(num);
+      const intPartFormat = intPart.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+      let floatPart = '';
+      const valueArray = num.toString().split('.');
+      if (valueArray.length === 2) {
+        floatPart = valueArray[1].toString();
+        return `${intPartFormat}.${floatPart}`;
+      }
+      return intPartFormat + floatPart;
     },
   },
 };

@@ -12,7 +12,7 @@
           data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <ul class="row list-unstyled">
+          <ul class="row list-unstyled" v-if="searchEpisode.length !== 0">
             <li v-for="(episode) in searchEpisode" :key="episode.id"
             class="col-md-6 col-lg-4 col-12 mb-3">
               <div class="card flex-row flex-md-column h-100">
@@ -34,6 +34,9 @@
               </div>
             </li>
           </ul>
+          <p class="text-center fs-4 lh-lg" v-else>Oops... <br> 目前搜尋不到相關節目
+          <br>麻煩請重新輸入關鍵字
+          </p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -69,7 +72,13 @@ export default {
         .then((res) => {
           this.allProductsData = res.data.products.filter((i) => i.category !== '贊助');
         })
-        .catch(() => {});
+        .catch((error) => {
+          this.$swal({
+            icon: 'warning',
+            title: 'Oops...',
+            text: error.response.data.message,
+          });
+        });
     },
     changeEpisode(id) {
       this.$router.push(`/episode/${id}`);

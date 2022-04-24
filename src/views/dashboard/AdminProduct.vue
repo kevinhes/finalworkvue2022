@@ -79,7 +79,9 @@ export default {
           this.productsData = res.data.products;
           this.pagination = res.data.pagination;
         })
-        .catch(() => {});
+        .catch((error) => {
+          alert(error.response.data.message);
+        });
     },
     openModal(status, product) {
       if (status === 'new') {

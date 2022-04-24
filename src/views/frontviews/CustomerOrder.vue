@@ -40,7 +40,14 @@ export default {
           this.cartsData = res.data.data;
           loader.hide();
         })
-        .catch(() => {});
+        .catch((error) => {
+          this.$swal({
+            icon: 'warning',
+            title: 'Oops...',
+            text: error.response.data.message,
+          });
+          loader.hide();
+        });
     },
   },
   mounted() {

@@ -78,7 +78,9 @@ export default {
             localStorage.setItem('imgUrlList', JSON.stringify(this.imgUploadUrlList));
             this.$refs.imageFile.value = '';
           })
-          .catch(() => {});
+          .catch((error) => {
+            alert(error.response.data.message);
+          });
       } else {
         alert('請輸入圖片標題');
       }

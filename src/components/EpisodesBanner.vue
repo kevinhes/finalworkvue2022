@@ -5,9 +5,7 @@
       delay: 9000,
       disableOnInteraction: false,
     }">
-    <swiper-slide style="backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/kevinhesapi/1649243972645.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=XmZZyUNwraPAkS%2BEqU0ItAyKHRiKcc6UVV8p%2FO629jHWuAcJ6Fl%2BHki7OAJ1walqcs7MIsAEY0lImp3BPRpsK5TPfrZb5uE1tIHii9oKRAbubOcLmBMzfF%2Bd0ib9jN89fiKcLd5IDPgvQAs6jBKNu4h%2BcuXZaFspYAI15yY%2FLEnIbpuWNbOmWYQvS2PFdzVmrmc9MegST1BUMdKxsrs2DLrs1UiKEpgI8YfglY3WmTE6Ar9l1vvoC2BCInrO1giu3BRuu1ml5cljZfL8vbr9dMwY1iGtZIM0FjPeWfz70MzE%2F1VN4TyMnp6tyu8c9Nm0GoU5oMu4IXNhRwIi9lJEXA%3D%3D);
-    background-position: 50% 75%;"
-    class="episode-banner position-relative">
+    <swiper-slide class="episode-banner position-relative raining-city">
       <div class="position-absolute bg-dark bg-opacity-75 bottom-0 start-0 end-0
       top-md-30 top-lg-35 top-50"
       style="z-index: 1;"></div>
@@ -25,9 +23,7 @@
         </div>
       </div>
     </swiper-slide>
-    <swiper-slide style="backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/kevinhesapi/1649244057900.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=gIEbjGSfj3YV4Q9rv3bWTfmerFXNEOBcnlJrpvRFdoaOp4xk6D3F%2FVWcsJo6VUkjq89tNYh%2FE8W%2FTI3zESD%2F1wkmQPyqL%2BfQBX57twKljVbdpIQo4XOEVacJxTfzKsUYMqL75k%2Bsl5eIh8vL5AOWWmK%2FEpJHOeFwtWR0oVi6xcDvIqwJ0mZx8r6XtMX131ZzRRhO%2BaMoRVaFEm4mcNu%2FLy%2FQBPdst%2FXa0PYVgqCRY1W%2FZ4D%2B5kvUp9ObsNfuXCM3Sks5gh%2Bo7nnneDSeUtCvRoUgCLqU261xXRimEJXwpVCGPW7UdNyTQzXaXsJzpxsUuxh2VzYDAY2KZH7evF5%2Bag%3D%3D);
-    background-position: 50% 50%;"
-    class="episode-banner  position-relative">
+    <swiper-slide class="episode-banner  position-relative new-village">
     <div class="position-absolute bg-dark bg-opacity-75 bottom-0 start-0 end-0
     top-md-30 top-lg-35 top-50"
       style="z-index: 1;"></div>
@@ -46,9 +42,7 @@
         </div>
       </div>
     </swiper-slide>
-    <swiper-slide style="backgroundImage: url(https://storage.googleapis.com/vue-course-api.appspot.com/kevinhesapi/1649244144564.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=JqWH%2FPgj7OATNacnDjDsgacnzzSv8a4CRhe9%2BkEzWVCKjerQ2Yo2Xis76S0BS%2BDgZchlObp2XNg9h09YXBDlNMvX2%2FaEpPhBEmukmsG21VeTSc2pYXxDktNtT4S%2BOG8uhaWGY4u4NvqMJwbsWTX4HPVZ4yU0VZmQ%2FnvsEtNoJ2aSWaOHucG29VaJxMDwS2BReikyVzGf%2BK8z554fcoB6AXGCXPX0YFBQ8RNZ6X4xDY49VDrLGsjy8cQTNZGRTtAM5iO67wZv0SPRvpdB%2BqmYK735YcWDQgBCpfrGAnBWM3%2FIr6LPg4SMckwZst2mjClfdgHWTbbZeBgpBcnKI09N9g%3D%3D);
-    background-position: 50% 79%;"
-    class="episode-banner position-relative">
+    <swiper-slide class="episode-banner position-relative hongkong-city">
     <div class="position-absolute bg-dark bg-opacity-75 bottom-0 start-0 end-0
     top-md-30 top-lg-35 top-50"
       style="z-index: 1;"></div>
@@ -95,7 +89,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .swiper {
+.raining-city {
+  background-image: url(../assets/images/episodesbanner-1.jpg);
+  background-position: 50% 70%;
+}
+
+.new-village {
+  background-image: url(../assets/images/episodesbanner-2.jpg);
+  background-position: 50% 50%;
+}
+
+.hongkong-city {
+  background-image: url(../assets/images/episodesbanner-3.jpg);
+  background-position: 50% 79%;
+}
+
+.swiper {
   width: 100%;
   height: 100%;
 }

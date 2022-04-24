@@ -105,7 +105,13 @@ export default {
         .then((res) => {
           this.cartsNum = res.data.data.carts.length;
         })
-        .catch(() => {});
+        .catch((error) => {
+          this.$swal({
+            icon: 'warning',
+            title: 'Oops...',
+            text: error.response.data.message,
+          });
+        });
     },
     openModal() {
       if (this.searchKeyword !== '') {
