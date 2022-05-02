@@ -82,27 +82,28 @@
       <div class="col-md-5">
         <ul class="list-unstyled d-flex mb-0">
           <li>
-            <a href="https://www.facebook.com/%E5%BB%BA%E4%BA%BA%E4%BA%94%E5%9B%9B%E4%B8%89-111774733535357" target="blank" class="text-light fs-2 nav-link">
+            <a href="https://www.facebook.com/%E5%BB%BA%E4%BA%BA%E4%BA%94%E5%9B%9B%E4%B8%89-111774733535357" target="blank" class="text-light fs-2 nav-link p-2">
               <i class="bi bi-facebook"></i>
             </a>
           </li>
           <li>
-            <a href="https://www.instagram.com/archiman543/" target="blank" class="text-light fs-2 nav-link">
+            <a href="https://www.instagram.com/archiman543/" target="blank" class="text-light fs-2 nav-link p-2">
               <i class="bi bi-instagram"></i>
             </a>
           </li>
           <li>
-            <a href="https://podcasts.apple.com/tw/podcast/%E5%BB%BA%E4%BA%BA%E4%BA%94%E5%9B%9B%E4%B8%89/id1479326946" target="blank" class="text-light fs-2 nav-link">
+            <a href="https://podcasts.apple.com/tw/podcast/%E5%BB%BA%E4%BA%BA%E4%BA%94%E5%9B%9B%E4%B8%89/id1479326946" target="blank" class="text-light fs-2 nav-link p-2">
               <i class="bi bi-apple"></i>
             </a>
           </li>
           <li>
-            <a href="https://open.spotify.com/show/3oEVprDL0rYmrQ5w5Gkw4K?si=be4ccfc3969b464b&nd=1" target="blank" class="text-light fs-2 nav-link">
+            <a href="https://open.spotify.com/show/3oEVprDL0rYmrQ5w5Gkw4K?si=be4ccfc3969b464b&nd=1" target="blank" class="text-light fs-2 nav-link p-2">
               <i class="bi bi-spotify"></i>
             </a>
           </li>
           <li>
-            <a href="mailto:archiman543@gmail.com" target="blank" class="text-light fs-2 nav-link">
+            <a href="mailto:archiman543@gmail.com"
+            target="blank" class="text-light fs-2 nav-link p-2">
               <i class="bi bi-envelope"></i>
             </a>
           </li>
