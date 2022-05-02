@@ -6,18 +6,18 @@
         {{cartItem.product.title}}
       </p>
       <div class="d-flex justify-content-end align-items-center">
-        <a class="border-0 bg-white number-btn"
-        :class="{'link-disalbed': cartIsLoading === true}"
-        @click.prevent="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty-=1)">
+        <button type="button" class="border-0 bg-white number-btn"
+        :class="{'link-disabled': cartIsLoading === true}"
+        @click="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty, -1)">
           <i class="bi bi-dash-lg fw-bold"></i>
-        </a>
+        </button>
         <input type="text" readonly v-model="cartItem.qty"
         class="w-25 border-0 mx-3 text-center">
-        <a class="border-0 bg-white number-btn me-5"
-        :class="{'link-disalbed': cartIsLoading === true}"
-        @click.prevent="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty+=1)">
+        <button class="border-0 bg-white number-btn me-5"
+        :class="{'link-disabled': cartIsLoading === true}"
+        @click="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty, +1)">
           <i class="bi bi-plus-lg fw-bold"></i>
-        </a>
+        </button>
         <button class="btn btn-outline-primary btn-sm"
         :class="{'disabled': cartIsLoading === true}"
         @click="delCartItem(cartItem.id)"
@@ -27,13 +27,15 @@
       </div>
     </li>
   </ul>
-  <div v-else>
-    <p class="fs-5 mb-4 text-center">
-      目前沒有贊助方案
+  <div v-else class="d-flex flex-column justify-content-center no-product">
+    <p class="fs-3 mb-4 text-center fw-bold">
+      您目前沒有贊助方案
     </p>
-    <RouterLink to="/sponsorus" class="btn btn-primary w-25 d-block mx-auto mb-5">點我去贊助</RouterLink>
+    <RouterLink to="/sponsorus"
+    class="btn btn-primary w-25 d-block mx-auto mb-5 btn-lg">點我去贊助</RouterLink>
   </div>
-  <div class="d-flex align-items-center justify-content-between">
+  <div class="d-flex align-items-center justify-content-between"
+  v-if="cartsData.carts?.length !== 0">
     <p>
       <span class="me-2">共</span>
       <span class="fw-bold">
@@ -62,15 +64,16 @@ export default {
   emits: ['getCartsData'],
   inject: ['emitter'],
   methods: {
-    updateCartNum(id, productId, qty) {
+    updateCartNum(id, productId, originQty, pressNum) {
       this.cartIsLoading = true;
-      if (qty === 0) {
+      const newQty = originQty + pressNum;
+      if (newQty === 0) {
         this.delCartItem(id);
       } else {
         const obj = {
           data: {
             product_id: productId,
-            qty,
+            qty: newQty,
           },
         };
         this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
@@ -145,7 +148,6 @@ export default {
               });
             });
         } else {
-          this.$emit('getCartsData');
           this.cartIsLoading = false;
         }
       });

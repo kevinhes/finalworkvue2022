@@ -22,18 +22,18 @@
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                  <a class="border-0 bg-white number-btn"
-                  :class="{'link-disalbed': isLoading === true}"
-                  @click.prevent="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty-=1)">
+                  <button type="button" class="border-0 bg-white number-btn"
+                  :class="{'link-disabled': isLoading === true}"
+                  @click="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty, -1)">
                     <i class="bi bi-dash-lg fw-bold"></i>
-                  </a>
+                  </button>
                   <input type="text" readonly class="w-25 border-0 px-auto text-center"
-                v-model="cartItem.qty">
-                  <a class="border-0 bg-white number-btn"
-                  :class="{'link-disalbed': isLoading === true}"
-                  @click.prevent="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty+=1)">
+                    v-model="cartItem.qty">
+                  <button type="button" class="border-0 bg-white number-btn"
+                  :class="{'link-disabled': isLoading === true}"
+                  @click="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty, 1)">
                     <i class="bi bi-plus-lg fw-bold"></i>
-                  </a>
+                  </button>
                 </div>
                 <div class="d-flex align-items-center">
                   <p class="mb-0">
@@ -92,6 +92,7 @@ export default {
       isLoading: false,
     };
   },
+  inject: ['emitter'],
   methods: {
     openShoppingCarts() {
       this.shoppingCarts.show();
@@ -110,15 +111,16 @@ export default {
           });
         });
     },
-    updateCartNum(id, productId, qty) {
+    updateCartNum(id, productId, originQty, pressNum) {
       this.isLoading = true;
-      if (qty === 0) {
+      const newQty = originQty + pressNum;
+      if (newQty === 0) {
         this.delCartItem(id);
       } else {
         const obj = {
           data: {
             product_id: productId,
-            qty,
+            qty: newQty,
           },
         };
         this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
@@ -202,7 +204,6 @@ export default {
               }
             });
         } else {
-          this.getCartsData();
           this.isLoading = false;
         }
       });
@@ -234,11 +235,5 @@ input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-.link-disalbed {
-  pointer-events: none;
-}
-.number-btn {
-  cursor: pointer;
 }
 </style>

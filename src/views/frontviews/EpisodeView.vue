@@ -1,7 +1,7 @@
 <template>
   <div class="container py-lg-5 py-3 mt-6">
     <div class="row">
-      <div class="offset-lg-2 col-lg-3 mb-3 mb-lg-0">
+      <div class="offset-lg-2 col-lg-3 mb-2 mb-lg-0">
         <img :src="product.imageUrl" :alt="product.title" class="img-fluid">
       </div>
       <div class="col-lg-5 d-flex flex-column justify-content-center">
@@ -9,26 +9,73 @@
           {{product.category}}
         </h5>
         <h2>{{product.title}}</h2>
-        <p class="mb-4 text-muted">建人五四三
+        <p class="mb-3 text-muted">建人五四三
           <span class="fs-6 text-muted">{{product.episodeTime}}</span>
         </p>
-        <div class="row">
-          <div class="col-md-6 g-md-2 col position-relative">
+        <div class="d-flex mb-2">
+          <div class="w-50 me-1 col position-relative">
             <div class="position-absolute start-15 top-50
             translate-middle" v-if="isPlayed">
               <i class="bi bi-volume-up text-primary fs-3"></i>
             </div>
-            <button @click="openPlayer" type="button"
-            class="btn btn-outline-primary w-100 py-2">試聽</button>
-            <audio id="audio" :src="product.audition"></audio>
+            <button @click="audioPlayer" type="button"
+            class="btn btn-outline-primary w-100 py-2">試聽十分鐘</button>
+            <audio ref="audio" :src="product.audition" @timeupdate="timeProgress"></audio>
           </div>
-          <div class="col-md-6 g-md-2 col">
+          <div class="w-50 ms-1 col">
             <a :href="product.episodeLink" target="blank"
             class="btn btn-primary w-100 py-2 d-none d-md-block">Apple podcast 上收聽</a>
             <a :href="product.episodeLink" target="blank"
             class="btn btn-primary w-100 py-2 d-md-none">Apple podcast</a>
           </div>
         </div>
+        <transition>
+          <div class="d-flex" v-if="audioPlayerShow === true">
+            <!-- 停止 -->
+            <div class="border border-primary rounded-3 me-2 p-2 number-btn" @click="audioStop">
+              <i class="bi bi-stop-fill fs-2 lh-1 text-primary"></i>
+            </div>
+            <!-- 播放 -->
+            <div class="border border-primary rounded-3 me-2 p-2 number-btn" @click="audioPlay"
+            v-if="isPlayed === false">
+              <i class="bi bi-play-fill fs-2 lh-1 text-primary"></i>
+            </div>
+            <!-- 暫停 -->
+            <div class="border border-primary rounded-3 me-2 p-2 number-btn" @click="audioPause"
+            v-if="isPlayed === true">
+              <i class="bi bi-pause-fill fs-2 lh-1 text-primary"></i>
+            </div>
+            <!-- 時間軸 -->
+            <div class="time-line border border-primary rounded-3
+            flex-grow-1 me-md-2 position-relative"
+            ref="audioBar"
+            @mousedown.stop="adjustAudioTime" @mouseup="endAdjustAudioTime">
+              <div class="time-filled rounded-3" ref="timeLinePosition">
+                <div class=" position-absolute top-50
+                start-50 mb-0 translate-middle"
+                v-if="audioLoadingState === 0">
+                  <div class="spinner-grow text-primary"
+                  role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+                <p class="text-dark position-absolute top-50 start-50 mb-0 translate-middle"
+                v-else>
+                  {{playedTime}}
+                </p>
+              </div>
+            </div>
+            <!-- 聲音大小 -->
+            <div class="border border-primary rounded-3 me-2 p-2 d-none d-md-block number-btn"
+            @click="volumeDown">
+              <i class="bi bi-volume-down-fill fs-2 lh-1 text-primary"></i>
+            </div>
+            <div class="border border-primary rounded-3 p-2 d-none d-md-block number-btn"
+            @click="volumeUp">
+              <i class="bi bi-volume-up-fill fs-2 lh-1 text-primary"></i>
+            </div>
+          </div>
+        </transition>
       </div>
     </div>
     <hr>
@@ -78,12 +125,10 @@
       </div>
     </div>
   </div>
-  <MediaPlayer ref="mediaPlayer" :product="product"></MediaPlayer>
 </template>
 
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue';
-import MediaPlayer from '@/components/MediaPlayer.vue';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
@@ -104,12 +149,15 @@ export default {
       searchProductId: '',
       isPlayed: false,
       episodeAudio: '',
+      timeLinePosition: '',
+      playedTime: null,
+      audioPlayerShow: false,
+      audioLoadingState: 0,
     };
   },
   components: {
     Swiper,
     SwiperSlide,
-    MediaPlayer,
   },
   inject: ['emitter'],
   methods: {
@@ -123,8 +171,6 @@ export default {
       this.$http.get(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/product/${singleId}`)
         .then((res) => {
           this.product = res.data.product;
-          this.episodeAudio = new Audio(res.data.product.audition);
-          this.episodeAudio.load();
           this.getProductsData(1, this.product.category);
           this.textCut();
         })
@@ -187,9 +233,76 @@ export default {
     changeEpisode(id) {
       this.$router.push(`/episode/${id}`);
       this.getProductData(id);
+      this.audioStop();
     },
-    openPlayer() {
-      this.$refs.mediaPlayer.openModal();
+    audioPlayer() {
+      if (this.episodeAudio.paused === true) {
+        this.isPlayed = this.episodeAudio.paused;
+        this.audioPlayerShow = true;
+        this.$nextTick(() => {
+          this.timeLinePosition = this.$refs.timeLinePosition;
+        });
+        this.episodeAudio.play();
+      }
+    },
+    audioPlay() {
+      this.isPlayed = this.episodeAudio.paused;
+      this.episodeAudio.play();
+    },
+    audioStop() {
+      this.isPlayed = false;
+      this.audioPlayerShow = false;
+      this.episodeAudio.pause();
+      this.episodeAudio.currentTime = 0;
+    },
+    audioPause() {
+      this.isPlayed = this.episodeAudio.paused;
+      this.episodeAudio.pause();
+    },
+    volumeUp() {
+      if (this.episodeAudio.volume < 1) {
+        this.episodeAudio.volume += 0.1;
+      }
+    },
+    volumeDown() {
+      if (this.episodeAudio.volume >= 0.1) {
+        this.episodeAudio.volume -= 0.1;
+      }
+    },
+    timeProgress() {
+      this.audioLoadingState = this.episodeAudio.readyState;
+      const episodeDuration = this.episodeAudio.duration;
+      const currentPosition = this.episodeAudio.currentTime;
+      const currentProgress = (currentPosition / episodeDuration) * 100;
+      this.timeLinePosition.style.flexBasis = `${currentProgress}%`;
+    },
+    playedTimeInfo() {
+      const currentTimeInfo = this.episodeAudio.currentTime;
+      let audioSec = currentTimeInfo % 60;
+      let audioMin = currentTimeInfo / 60;
+      audioSec = Math.floor(audioSec);
+      audioMin = Math.floor(audioMin);
+      const audioTimeJoin = `${audioMin} : ${audioSec}`;
+      this.playedTime = audioTimeJoin;
+    },
+    audioEventListener() {
+      this.$refs.audio.addEventListener('timeupdate', this.timeProgress);
+      this.$refs.audio.addEventListener('timeupdate', this.playedTimeInfo);
+    },
+    adjustAudioTime() {
+      this.$refs.audioBar.addEventListener('mousedown', this.dragTimeBar);
+      this.$refs.audioBar.addEventListener('mousemove', this.dragTimeBar);
+    },
+    endAdjustAudioTime() {
+      this.$refs.audioBar.removeEventListener('mousemove', this.dragTimeBar);
+    },
+    dragTimeBar(e) {
+      const videoDuration = this.episodeAudio.duration;
+      const mouseX = e.offsetX;
+      const progressBarWidth = this.$refs.audioBar.offsetWidth;
+      const videoProgress = mouseX / progressBarWidth;
+      const newPosition = videoDuration * videoProgress;
+      this.episodeAudio.currentTime = newPosition;
     },
     episodeTitleCutNum(title) {
       let episodeTitleNum = title.split(' ', 2);
@@ -217,6 +330,8 @@ export default {
   },
   mounted() {
     this.getProductData();
+    this.episodeAudio = this.$refs.audio;
+    this.audioEventListener();
   },
 };
 </script>
@@ -268,5 +383,28 @@ export default {
 :deep(.swiper-pagination-bullet-active) {
   color: #fff;
   background: #be1e2d;
+}
+
+.time-line {
+  flex:10;
+  position: relative;
+  display:flex;
+  flex-basis:100%;
+  transition:height 0.3s;
+  cursor:ew-resize;
+}
+.time-filled {
+  background: linear-gradient(-90deg, #be1e2d, white);
+  flex:0;
+  flex-basis:0%;
+}
+.v-enter-active,.v-leave-active {
+  transition: all .5s;
+}
+.v-enter-from,.v-leave-to {
+  opacity: 0;
+}
+.v-enter-to,.v-leave-from {
+  opacity: 1;
 }
 </style>

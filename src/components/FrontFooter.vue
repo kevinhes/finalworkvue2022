@@ -16,9 +16,9 @@
       <div class="col-md-6 d-none d-lg-block">
         <ul class="list-unstyled d-flex mb-0">
           <li>
-            <button type="button" to="/"
+            <RouterLink type="button" to="/"
             class="nav-link text-light position-relative
-            bg-dark border-0">首頁</button>
+            bg-dark border-0">首頁</RouterLink>
           </li>
           <li>
             <RouterLink to="/about"

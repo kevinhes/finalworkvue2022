@@ -45,17 +45,20 @@
                 {{cartItem.product.title}}
               </p>
               <div class="d-flex justify-content-end align-items-center">
-                <a href="#" :class="{'link-disalbed': isLoading === true}"
-                @click.prevent="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty-=1)">
+                <button type="button"
+                class="border-0 bg-transparent"
+                :class="{'link-disabled': isLoading === true}"
+                @click="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty, -1)">
                   <i class="bi bi-dash"></i>
-                </a>
+                </button>
                 <!-- <p class="mb-0 mx-1 p-2">{{cartItem.qty}}</p> -->
                 <input type="text" readonly class="w-25 border-0 px-auto text-center"
                 v-model="cartItem.qty">
-                <a href="#" class="me-3" :class="{'link-disalbed': isLoading === true}"
-                @click.prevent="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty+=1)">
+                <button type="button" class="border-0 bg-transparent me-3"
+                :class="{'link-disabled': isLoading === true}"
+                @click="updateCartNum(cartItem.id, cartItem.product.id, cartItem.qty, +1)">
                   <i class="bi bi-plus"></i>
-                </a>
+                </button>
                 <button type="button" class="btn btn-outline-primary btn-sm"
                 @click="delCartItem(cartItem.id)">
                   <i class="bi bi-x"></i>
@@ -186,7 +189,6 @@ export default {
               });
             });
         } else {
-          this.getCartsData();
           this.isLoading = false;
         }
       });
@@ -204,15 +206,16 @@ export default {
           });
         });
     },
-    updateCartNum(id, productId, qty) {
+    updateCartNum(id, productId, originQty, pressNum) {
       this.isLoading = true;
-      if (qty === 0) {
+      const newQty = originQty + pressNum;
+      if (newQty === 0) {
         this.delCartItem(id);
       } else {
         const obj = {
           data: {
             product_id: productId,
-            qty,
+            qty: newQty,
           },
         };
         this.$http.put(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_API_PATH}/cart/${id}`, obj)
