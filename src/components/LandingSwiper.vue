@@ -9,7 +9,7 @@
     :modules="modules"
     class="mySwiper"
     :breakpoints="{
-      '390': {
+      '375': {
         slidesPerView: 1,
         spaceBetween: 20,
       },
